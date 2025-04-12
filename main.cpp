@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <windows.h>
-#include <fstream>
+#include <fstream> //Manejo de archivos
 #include <string>
 using namespace std;
 const int MAX=5;
@@ -44,7 +44,7 @@ void continuar();
         	    	modificar_tarea(no_hecho,pendientes,indice);
         	    	break;
         	    case '4':
-        	    	guardar_tarea(no_hecho,pendientes,indice);
+        	    	exportar_tarea(no_hecho,pendientes,indice);
         	    	break;
         	    case '5':
         	    	cout<<"Saliendo..\n"<<endl;
@@ -62,22 +62,22 @@ void continuar(){
 	cout<<"Continuar [c]: ";cin>>conti;
 	system("cls");
 }
-// [1] Agregar tarea \\
+// [1] Agregar tarea
 void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
 	t_flecha check="[_]";
-	t_tarea tarea;
-	if(ocup==MAX)
+	if (ocup==MAX){
 		cout<<"Las lista alcanzo su limite"<<endl;
+	}
 	else{
 		ocup++;
-		strcpy(no_hecho[ocup],check); // [strcpy()]->Para copiar el contenido de check en no_hecho[ocup]
+		strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
 		cout<<"Inserte tarea: \n\t> ";
-		fflush(stdin);
-		gets(tareas[ocup]);
+		fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
+		gets(tareas[ocup]); // ¨[gets]-> Lee el valor de entrada y lo almacena en el puntero espesificado 
 	}
 	system("cls");
 }
-// [2] Mostrar lista \\
+// [2] Mostrar lista 
 void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
 	int i;
 	if (ocup<0){
@@ -92,7 +92,7 @@ void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
 	    continuar();
 	}
 }
-// [3] Modificar tareas de la lista \\
+// [3] Modificar tareas de la lista 
 void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	char sub_op;
 	system("cls");
@@ -123,7 +123,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         }
 	}while(sub_op!='4');
 }
-    // [3_1] Marcar tarea realizada \\
+    // [3_1] Marcar tarea realizada 
     void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char sub_op){
     	int j,i,n=0;// 'n' es la variable para mover el selector
     	t_flecha selector=">>>";
@@ -172,7 +172,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	    system("cls");
     	}
     }
-    // [3_2] Vaciar lista \\
+    // [3_2] Vaciar lista
     void modtarea_v(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         int i;
         t_flecha vacio="";
@@ -184,7 +184,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	cout<<"Lista de tareas vaciada.."<<endl;
     	continuar();
     }
-    // [3_3] Hacer cambios \\
+    // [3_3] Hacer cambios
     void modtarea_c(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	char op_sub2;
     	system("cls");
@@ -210,7 +210,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	}while(op_sub2!='3');
         system("cls");
     }
-        // [3_3_1] Quitar marcacion \\
+        // [3_3_1] Quitar marcacion
         void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op){ 
         	int j,i,n=0;// 'n' es la variable para mover el selector
     	    t_flecha selector=">>>";
@@ -255,7 +255,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	        system("cls");
     	    }
         }
-        // [3_3_2] Modificar tarea\\
+        // [3_3_2] Modificar tarea
         void corregir_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op){
         	int i,j=0,orden;
         	bool cambio=false;
@@ -277,8 +277,8 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         	Sleep(500);
         	system("cls");
         }
-// [4] Exportar lista en formato ".txt" \\
-void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
+// [4] Exportar lista en formato ".txt"
+void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
     int i;
     t_tarea filename = "lista_tareas.txt";
     ofstream file;
@@ -293,5 +293,10 @@ void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
     file.close();
     cout<<"Lista de tareas guardada.."<<endl;
     Sleep(500);
+    system("copy C:\\Users\\joako\\Desktop\\proyectos\\proyecto_3\\lista_tareas.txt  C:\\Users\\joako\\Desktop\\");
     system("cls");
 }
+
+/* 
+	copy C:\Users\joako\Desktop\proyectos\proyecto_3\lista_tareas.txt C:\Users\joako\Desktop\
+*/
