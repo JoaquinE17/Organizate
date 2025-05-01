@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <fstream> //Manejo de archivos
 #include <string>
+#include <conio.h> //Escucha el ingreso de tecla, uso de _kbhit() y _getch()
 using namespace std;
 const int MAX=5;
 typedef char t_flecha[4];
@@ -19,6 +20,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
     void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op);
     void corregir_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op);
 void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
+void cancelar_ingreso(t_matriz tareas, int &ocup);
 void continuar();
 
     int main(){
@@ -48,7 +50,7 @@ void continuar();
         	    	break;
         	    case '5':
         	    	cout<<"Saliendo..\n"<<endl;
-        	    	system("pause");
+        	    	Sleep(500);
         	    	break;
         	    default:
         	    	cout<<"ERROR: Ingreso invalido. Ingrese nuevamente."<<endl;
@@ -56,6 +58,17 @@ void continuar();
         	}
         }while(op!='5');
     }
+void cancelar_ingreso(t_matriz tareas, int &ocup){
+    char letra = 'q';
+    if (*tareas[ocup] == letra){
+        ocup--;
+        cout<<"Proceso cancelado."<<endl;
+        Sleep(500);
+    }
+    else{
+        return;
+    }
+}
 
 void continuar(){
 	char conti;
@@ -71,9 +84,10 @@ void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	else{
 		ocup++;
 		strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
-		cout<<"Inserte tarea: \n\t> ";
+		cout<<"Inserte nueva tarea:\n[q]Cancelar\n\t> ";
 		fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
 		gets(tareas[ocup]); // ¨[gets]-> Lee el valor de entrada y lo almacena en el puntero espesificado 
+        cancelar_ingreso(tareas,ocup);
 	}
 	system("cls");
 }
@@ -129,7 +143,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	t_flecha selector=">>>";
     	t_flecha check="[x]";
     	char elegido;
-    	while(elegido!='x'){
+    	while(elegido!='x' && elegido!='q'){
     		system("cls");
     		cout<<"[1] Marcar tarea realizada"<<endl;
             cout<<"[2] Vaciar lista de tareas"<<endl;
@@ -144,7 +158,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	        	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
     	    }
     	    cout<<"\n";
-    	    cout<<"W(subir)/S(bajar)/X(marcar): ";
+    	    cout<<"W(subir)/S(bajar)/X(marcar)/Q(cancelar): ";
     	    cin>>elegido;
     	    switch(elegido){
     	        case 's':
@@ -166,6 +180,10 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	        	cout<<"Tarea marcada"<<endl;
     	        	Sleep(500);
     	        	break;
+                case 'q':
+                    cout<<"Cancelando...";
+                    Sleep(500);
+                    break;
     	        default:
     	        	cout<<"ERROR"<<endl;
     	    }
@@ -175,7 +193,13 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     // [3_2] Vaciar lista
     void modtarea_v(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         int i;
+        char s_n;
         t_flecha vacio="";
+        cout<<"Confirmar vaciado de lista s/n: ";cin>>s_n;
+        if (s_n == 'n'){
+            system("cls");
+            return;
+        }
     	for(i=0;i<=ocup;i++){
     		strcpy(no_hecho[i],vacio);
     		strcpy(tareas[i],vacio);
@@ -216,7 +240,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	    t_flecha selector=">>>";
     	    t_flecha check="[_]";
     	    char elegido;
-    	    while(elegido!='x'){
+    	    while(elegido!='x' && elegido!='q'){
     	    	system("cls");
                 cout<<"Seleccione la tarea a desmarcar: "<<endl;
                 cout<<"\n";
@@ -227,7 +251,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	            	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
     	        }
     	        cout<<"\n";
-    	        cout<<"W(subir)/S(bajar)/X(marcar): ";
+    	        cout<<"W(subir)/S(bajar)/X(marcar)/Q(cancelar): ";
     	        cin>>elegido;
     	        switch(elegido){
     	            case 's':
@@ -249,6 +273,10 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	            	cout<<"Tarea desmarcada"<<endl;
     	            	Sleep(500);
     	            	break;
+                    case 'q':
+                        cout<<"Cancelando...";
+                        Sleep(500);
+                        break;
     	            default:
     	            	cout<<"ERROR"<<endl;
     	        }
@@ -257,24 +285,31 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         }
         // [3_3_2] Modificar tarea
         void corregir_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op){
-        	int i,j=0,orden;
+        	int i,j=1,orden;
         	bool cambio=false;
         	t_tarea nuevo_cambio;
-        	for(i=0;i<=ocup;i++){
-        		cout<<"["<<i<<"]"<<"\t"<<tareas[i]<<endl;
+            cout<<"\n";
+        	for(i=1;i<=ocup;i++){
+        		cout<<"\t["<<i<<"]"<<tareas[i]<<endl;
         	}
-        	cout<<"Inserte el nro. correspondiente a la tarea: ";cin>>orden;
-        	cout<<"Acontinuacion introdusca la nueva tarea: "<<endl;
-        	cout<<"\t>";cin>>nuevo_cambio;
-        	while(cambio==false){
-                if(j==orden){
-                	strcpy(tareas[j],nuevo_cambio);
-                	cambio=true;
-                }
-                j++;
-        	}
-        	cout<<"Cambio realizado.."<<endl;
-        	Sleep(500);
+        	cout<<"\n[0] Cancelar\nInserte el valor de referencia: ";cin>>orden;
+            if (orden == 0){
+                cout<<"Cancelando...";
+                Sleep(500);
+            }
+            else{
+            	cout<<"Acontinuacion modifique la tarea: "<<endl;
+            	cout<<"\t>";cin>>nuevo_cambio;
+            	while(cambio==false){
+                    if(j==orden){
+                    	strcpy(tareas[j],nuevo_cambio);
+                    	cambio=true;
+                    }
+                    j++;
+            	}
+            	cout<<"Cambio realizado.."<<endl;
+            	Sleep(500);
+            }
         	system("cls");
         }
 // [4] Exportar lista en formato ".txt"
