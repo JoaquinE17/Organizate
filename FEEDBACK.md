@@ -13,3 +13,5 @@
 [...] Informar al usuario de cuantos ***caracteres puede ingresar***, reportar _ERROR_ cuando se ah exedido del limite permitiendo que ingrese nuevamente la cadena.
 
 [...] Corregir errores de sintaxis, mejorar la interfaz (detalles). Principalmente en el sub-menu de la opcion 3.
+
+[...] Agregar una opción que permita usar un Temporizador para completar una tarea. Por ejemplo, 2hs para hacer una tarea X.De está manera el usuario podrá optimizar de mejor manera el uso de su tiempo. 
