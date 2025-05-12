@@ -29,9 +29,10 @@ void continuar();
         int indice=-1;
         char op;
         do{
-        	cout<<"[1] Ingresar tareas pendientes"<<endl;
-        	cout<<"[2] Mostrar la lista de tareas"<<endl;
-        	cout<<"[3] Modificar la lista de tareas"<<endl;
+            cout<<"########## ORGANIZATE ##########"<<endl;
+        	cout<<"[1] Agregar tareas "<<endl;
+        	cout<<"[2] Mostrar tareas"<<endl;
+        	cout<<"[3] Modificar tareas"<<endl;
         	cout<<"[4] Exportar lista de tareas"<<endl;
         	cout<<"[5] Finalizar programa"<<endl;
         	cout<<"Elija una opcion: ";cin>>op;
@@ -46,6 +47,7 @@ void continuar();
         	    	modificar_tarea(no_hecho,pendientes,indice);
         	    	break;
         	    case '4':
+                    cout<<endl;
         	    	exportar_tarea(no_hecho,pendientes,indice);
         	    	break;
         	    case '5':
@@ -111,6 +113,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	char sub_op;
 	system("cls");
 	do{
+        cout<<"########## -MODIFICAR ##########"<<endl;
 		cout<<"[1] Marcar tarea realizada"<<endl;
         cout<<"[2] Vaciar lista de tareas"<<endl;
         cout<<"[3] Hacer cambios en la lista"<<endl;
@@ -251,7 +254,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	            	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
     	        }
     	        cout<<"\n";
-    	        cout<<"W(subir)/S(bajar)/X(marcar)/Q(cancelar): ";
+    	        cout<<"W(subir)/S(bajar)/X(desmarcar)/Q(cancelar): ";
     	        cin>>elegido;
     	        switch(elegido){
     	            case 's':
@@ -283,17 +286,17 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     	        system("cls");
     	    }
         }
-        // [3_3_2] Modificar tarea
+        // [3_3_2] Corregir tarea
         void corregir_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op){
-        	int i,j=1,orden;
+        	int i,j=0,orden;
         	bool cambio=false;
         	t_tarea nuevo_cambio;
             cout<<"\n";
-        	for(i=1;i<=ocup;i++){
+        	for(i=0;i<=ocup;i++){
         		cout<<"\t["<<i<<"]"<<tareas[i]<<endl;
         	}
-        	cout<<"\n[0] Cancelar\nInserte el valor de referencia: ";cin>>orden;
-            if (orden == 0){
+        	cout<<"\n["<<ocup+1<<"] Cancelar\nInserte el valor de referencia: ";cin>>orden;
+            if (orden == ocup+1){
                 cout<<"Cancelando...";
                 Sleep(500);
             }
@@ -315,20 +318,27 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 // [4] Exportar lista en formato ".txt"
 void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
     int i;
+    char exp;
     t_tarea filename = "lista_tareas.txt";
     ofstream file;
     file.open(filename);
     if(!file.is_open()){
     	cerr<<"Failed to open "<<filename<<endl;
     }
-    file << "_Lista de tareas:" << endl;
+    file << "********** ORGANIZATE **********" <<endl;
+    file << " _Lista de tareas:" << endl;
     for(i=0;i<=ocup;i++){
     	file << "\t" << no_hecho[i] << " " << tareas[i] << endl;
     }
+    file << "********************************" << endl;
     file.close();
-    cout<<"Lista de tareas guardada.."<<endl;
-    Sleep(500);
-    system("copy C:\\Users\\joako\\Desktop\\proyectos\\proyecto_3\\lista_tareas.txt  C:\\Users\\joako\\Desktop\\");
+    system("type lista_tareas.txt");
+    cout<<"\nContinuar exportacion s/n: ";cin>>exp;
+    if (exp == 's'){
+        cout<<"\tLista guardada..."<<endl;
+        system("copy C:\\Users\\joako\\Desktop\\proyectos\\proyecto_3\\lista_tareas.txt  C:\\Users\\joako\\Desktop\\ > nul");
+        Sleep(600);
+    }
     system("cls");
 }
 
