@@ -1,4 +1,4 @@
-## Opciones a agregar y corregir:  
+### Opciones a agregar y corregir:  
 
 [...] Permitir al usuario crear archivos que contengan las materias que cursa en forma de lista (como ya se presenta en el programa '>>> [x] <_materia_>'). Cada archivo debe llevar como **Nombre** el fin que cumple, por ejemplo _PARCIAL_, _CUESTIONARIO_, _TPs_, etc. El nombre del archivo puede ser ingresado por el usuario ó que el usuario seleccione una de las opciones dadas.  
 
@@ -10,6 +10,8 @@
 
 [...] Hacer que el programa _RECUPERE_ ***archivos guardados*** para que sean manipulados por el usuario (opcines de 'Modificar la lista de tareas')
 
-[...] Informar al usuario de cuantos ***caracteres puede ingresar***, reportar _ERROR_ cuando se ah exedido del limite permitiendo que ingrese nuevamente la cadena.
+[...] Informar al usuario de cuantos ***caracteres puede ingresar***, reportar _ERROR_ cuando se ah exedido del limite, permitiendo que ingrese nuevamente la cadena.
 
 [...] Corregir errores de sintaxis, mejorar la interfaz (detalles). Principalmente en el sub-menu de la opcion 3.
+
+[...] Opción que permita seleccionar una tarea en particular, para eliminar. En el submenu de la opción 3.
