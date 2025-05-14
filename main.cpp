@@ -22,20 +22,25 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
 void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
 void cancelar_ingreso(t_matriz tareas, int &ocup);
 void continuar();
+void HabilitarAnsiEscapeCodes();
 
     int main(){
         t_matriz pendientes;
         t_matriz2 no_hecho;
         int indice=-1;
         char op;
+        HabilitarAnsiEscapeCodes();
         do{
-            cout<<"########## ORGANIZATE ##########"<<endl;
-        	cout<<"[1] Agregar tareas "<<endl;
-        	cout<<"[2] Mostrar tareas"<<endl;
-        	cout<<"[3] Modificar tareas"<<endl;
-        	cout<<"[4] Exportar lista de tareas"<<endl;
-        	cout<<"[5] Finalizar programa"<<endl;
-        	cout<<"Elija una opcion: ";cin>>op;
+            cout<<"********** ORGANIZATE **********"<<endl;
+        	cout<<"  [1] Agregar tareas "<<endl;
+        	cout<<"  [2] Mostrar tareas"<<endl;
+        	cout<<"  [3] Modificar tareas"<<endl;
+        	cout<<"  [4] Exportar lista de tareas"<<endl;
+        	cout<<"  [5] Finalizar programa"<<endl;
+            cout<<" -------------------------------"<<endl;
+            cout<<"\033[1B -------------------------------"<<endl;
+        	cout<<"\033[2AElija una opcion: ";cin>>op;
+            cout<<"\n";
         	switch(op){
         	    case '1': 
         	    	ingresar_tarea(no_hecho,pendientes,indice);
@@ -77,22 +82,34 @@ void continuar(){
 	cout<<"Continuar [c]: ";cin>>conti;
 	system("cls");
 }
+
+void HabilitarAnsiEscapeCodes() {
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
+}
+
 // [1] Agregar tarea
 void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
 	t_flecha check="[_]";
+    HabilitarAnsiEscapeCodes(); // Activar soporte para ANSI
 	if (ocup==MAX){
 		cout<<"Las lista alcanzo su limite"<<endl;
 	}
 	else{
 		ocup++;
 		strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
-		cout<<"Inserte nueva tarea:\n[q]Cancelar\n\t> ";
+		cout<<"\t> \n[q]Cancelar";
+        cout<<"\033[1A";
 		fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
 		gets(tareas[ocup]); // ¨[gets]-> Lee el valor de entrada y lo almacena en el puntero espesificado 
         cancelar_ingreso(tareas,ocup);
 	}
 	system("cls");
 }
+
 // [2] Mostrar lista 
 void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
 	int i;
@@ -113,12 +130,15 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	char sub_op;
 	system("cls");
 	do{
-        cout<<"########## -MODIFICAR ##########"<<endl;
-		cout<<"[1] Marcar tarea realizada"<<endl;
-        cout<<"[2] Vaciar lista de tareas"<<endl;
-        cout<<"[3] Hacer cambios en la lista"<<endl;
-        cout<<"[4] Volver [<-"<<endl;
-        cout<<"Elija una opcion: ";cin>>sub_op;
+        cout<<"********** -MODIFICAR **********"<<endl;
+		cout<<"  [1] Marcar tarea realizada"<<endl;
+        cout<<"  [2] Vaciar lista de tareas"<<endl;
+        cout<<"  [3] Hacer cambios en la lista"<<endl;
+        cout<<"  [4] Volver [<-"<<endl;
+        cout<<" -------------------------------"<<endl;
+        cout<<"\033[1B -------------------------------"<<endl;
+        cout<<"\033[2AElija una opcion: ";cin>>sub_op;
+        cout<<"\n";
         switch(sub_op){
             case '1':
                 modtarea_tr(no_hecho,tareas,ocup,sub_op);
