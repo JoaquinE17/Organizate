@@ -9,9 +9,10 @@ using namespace std;
 const int MAX=5;
 typedef char t_flecha[4];
 typedef char t_tarea[30];
+typedef char t_h2[20];
 typedef t_tarea t_matriz[MAX];
 typedef t_flecha t_matriz2[MAX];
-void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
+void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup, t_h2 &titulo);
 void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
 void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
   void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char sub_op);
@@ -19,7 +20,8 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
   void modtarea_c(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
     void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op);
     void corregir_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op);
-void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
+void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup, t_h2 tutulo);
+void agregar_titulo(t_h2 &titulo);
 void cancelar_ingreso(t_matriz tareas, int &ocup);
 void continuar();
 void HabilitarAnsiEscapeCodes();
@@ -27,6 +29,7 @@ void HabilitarAnsiEscapeCodes();
     int main(){
         t_matriz pendientes;
         t_matriz2 no_hecho;
+        t_h2 titulo;
         int indice=-1;
         char op;
         HabilitarAnsiEscapeCodes();
@@ -43,7 +46,7 @@ void HabilitarAnsiEscapeCodes();
             cout<<"\n";
         	switch(op){
         	    case '1': 
-        	    	ingresar_tarea(no_hecho,pendientes,indice);
+        	    	ingresar_tarea(no_hecho,pendientes,indice,titulo);
         	    	break;
         	    case '2':
         	    	mostrar_tarea(no_hecho,pendientes,indice);
@@ -53,7 +56,7 @@ void HabilitarAnsiEscapeCodes();
         	    	break;
         	    case '4':
                     cout<<endl;
-        	    	exportar_tarea(no_hecho,pendientes,indice);
+        	    	exportar_tarea(no_hecho,pendientes,indice,titulo);
         	    	break;
         	    case '5':
         	    	cout<<"Saliendo..\n"<<endl;
@@ -91,8 +94,19 @@ void HabilitarAnsiEscapeCodes() {
     SetConsoleMode(hOut, dwMode);
 }
 
+void agregar_titulo(t_h2 &titulo){
+    char op;
+    t_h2 title_default = "Lista de tareas:";
+    cout<<"Insetar titulo s/n: ";cin>>op;
+    if (op == 's'){
+        cout<<"  > ";
+        fflush(stdin);
+        gets(titulo);
+    }
+}
+
 // [1] Agregar tarea
-void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
+void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup, t_h2 &titulo){ 
 	t_flecha check="[_]";
     HabilitarAnsiEscapeCodes(); // Activar soporte para ANSI
 	if (ocup==MAX){
@@ -101,6 +115,7 @@ void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	else{
 		ocup++;
 		strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
+        agregar_titulo(titulo);
 		cout<<"\t> \n[q]Cancelar";
         cout<<"\033[1A";
 		fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
@@ -336,7 +351,7 @@ void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         	system("cls");
         }
 // [4] Exportar lista en formato ".txt"
-void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
+void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup, t_h2 titulo){
     int i;
     char exp;
     t_tarea filename = "lista_tareas.txt";
@@ -346,7 +361,7 @@ void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
     	cerr<<"Failed to open "<<filename<<endl;
     }
     file << "********** ORGANIZATE **********" <<endl;
-    file << " _Lista de tareas:" << endl;
+    file << " _" << titulo << ":" << endl;
     for(i=0;i<=ocup;i++){
     	file << "\t" << no_hecho[i] << " " << tareas[i] << endl;
     }
