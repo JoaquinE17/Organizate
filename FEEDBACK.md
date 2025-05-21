@@ -1,6 +1,6 @@
 ## Opciones a agregar y corregir:  
 
-[...] Permitir al usuario crear archivos que contengan las materias que cursa en forma de lista (como ya se presenta en el programa '>>> [x] <_materia_>'). Cada archivo debe llevar como **Nombre** el fin que cumple, por ejemplo _PARCIAL_, _CUESTIONARIO_, _TPs_, etc. El nombre del archivo puede ser ingresado por el usuario ó que el usuario seleccione una de las opciones dadas.  
+[.?.] Permitir al usuario crear archivos que contengan las materias que cursa en forma de lista (como ya se presenta en el programa '>>> [x] <_materia_>'). Cada archivo debe llevar como **Nombre** el fin que cumple, por ejemplo _PARCIAL_, _CUESTIONARIO_, _TPs_, etc. El nombre del archivo puede ser ingresado por el usuario ó que el usuario seleccione una de las opciones dadas.  
 
 [.X.] Agregar la opción de **Cancelar** al momento en el que se esta ejecutando una accion, por ejemplo cuando pulsamos 'insertar tareas pendientes' ó los submenus de 'modificar lista de tareas' y no queremos ejecutar esas acciones.  
 
