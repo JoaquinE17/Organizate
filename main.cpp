@@ -8,7 +8,7 @@
 
 #include "constantes.h"
 #include "peaje.h"
-#include "trenes.h"
+#include "vagones.h"
 
 /* NO OLVIDARSE: 
 _Al momento de crear un nuevo '.cpp', este debe ser agregado manualmente dentro de [compilar.bat], 
@@ -49,13 +49,14 @@ int main(){
     	    	ingresar_tarea(no_hecho,pendientes,indice,titulo);
     	    	break;
     	    case '2':
-    	    	mostrar_tarea(no_hecho,pendientes,indice);
+    	    	mostrar_tarea(no_hecho,pendientes,indice,titulo);
     	    	break;
     	    case '3':
     	    	modificar_tarea(no_hecho,pendientes,indice);
     	    	break;
     	    case '4':
                 cout<<endl;
+                // Observar: presenta problemas al momento de exportar
     	    	exportar_tarea(no_hecho,pendientes,indice,titulo);
     	    	break;
     	    case '5':
@@ -64,7 +65,7 @@ int main(){
     	    	break;
     	    default:
     	    	cout<<"ERROR: Ingreso invalido. Ingrese nuevamente."<<endl;
-    	    	Sleep(500);
+                continuar();
     	}
     }while(op!='5');
 }
