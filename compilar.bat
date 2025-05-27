@@ -1,6 +1,6 @@
 @echo off
 ::Compilar codigo
-g++ main.cpp peaje.cpp vagones.cpp -o Organizate.exe
+g++ main.cpp peaje.cpp vagones.cpp tren.cpp -o Organizate.exe
 
 ::Verificar error
 if %errorlevel% neq 0 (

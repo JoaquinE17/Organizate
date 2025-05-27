@@ -9,6 +9,7 @@
 #include "constantes.h"
 #include "peaje.h"
 #include "vagones.h"
+#include "tren.h"
 
 /* NO OLVIDARSE: 
 _Al momento de crear un nuevo '.cpp', este debe ser agregado manualmente dentro de [compilar.bat], 
@@ -26,12 +27,17 @@ typedef char t_h2[20];
 typedef t_tarea t_matriz[MAX];
 typedef t_flecha t_matriz2[MAX];
 
+
+
 int main(){
     t_matriz pendientes;
     t_matriz2 no_hecho;
     t_h2 titulo;
+
+    nodo* lista_final = NULL;
+
     int indice=-1;
-    char op;
+    char op,op2;
     do{
         HabilitarAnsiEscapeCodes();
         cout<<"********** ORGANIZATE **********"<<endl;
@@ -46,10 +52,20 @@ int main(){
         cout<<"\n";
     	switch(op){
     	    case '1': 
-    	    	ingresar_tarea(no_hecho,pendientes,indice,titulo);
+    	    	ingresar_tarea(no_hecho,pendientes,indice);
+                cout<<"Quiere crear lista final s/n: ";cin>>op2;
+                if (op2=='s'){
+                    agregar_elementos(lista_final,pendientes,indice);
+                }
+
     	    	break;
     	    case '2':
-    	    	mostrar_tarea(no_hecho,pendientes,indice,titulo);
+    	    	mostrar_tarea(no_hecho,pendientes,indice);
+                cout<<"Quiere ver la lista final s/n: ";cin>>op2;
+                if (op2=='s'){
+                    mostrar_lista(lista_final);
+                    continuar();
+                }
     	    	break;
     	    case '3':
     	    	modificar_tarea(no_hecho,pendientes,indice);
@@ -57,7 +73,7 @@ int main(){
     	    case '4':
                 cout<<endl;
                 // Observar: presenta problemas al momento de exportar
-    	    	exportar_tarea(no_hecho,pendientes,indice,titulo);
+    	    	exportar_tarea(no_hecho,pendientes,indice);
     	    	break;
     	    case '5':
     	    	cout<<"Saliendo..\n"<<endl;

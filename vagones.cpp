@@ -12,29 +12,45 @@
 #include "vagones.h"
 
 using namespace std;
-
-void agregar_titulo(t_h2 &titulo){
+/*
+t_h2 agregar_titulo(){
     char op;
     t_h2 title_default = "Lista de tareas:";
     cout<<"Insetar titulo? s/n: ";cin>>op;
     if (op == 's'){
         cout<<"  Titulo: > ";
         fflush(stdin);
-        gets(titulo);
+        gets(title_default);
     }
+    return title_default;
 }
-
+*/
 // [1] Agregar tarea
-void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup, t_h2 &titulo){ 
+void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
 	t_flecha check="[_]";
+
+    char op;
+    t_h2 title_default = "Lista de tareas:";
+
 	if (ocup==MAX){
 		cout<<"Las lista alcanzo su limite"<<endl;
         continuar();
 	}
 	else{
-		ocup++;
-		strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
-        agregar_titulo(titulo);
+		//strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
+        cout<<"Insetar titulo? s/n: ";cin>>op;
+        if (op == 's'){
+            ocup = 0;
+            cout<<"  Titulo: > ";
+            fflush(stdin);
+            gets(title_default);
+            strcpy(tareas[ocup],title_default);
+            ocup++;
+        }
+        else{
+            ocup++;
+        }
+        strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
 		cout<<"\t> \n[q]Cancelar";
         cout<<"\033[1A";
 		fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
@@ -45,7 +61,7 @@ void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup, t_h2 &titu
 }
 
 // [2] Mostrar lista 
-void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup, t_h2 titulo){ 
+void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
 	int i;
 	if (ocup<0){
 		cout<<"Lista de tareas vacia.."<<endl;
@@ -54,8 +70,8 @@ void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup, t_h2 titulo){
 	else{
 		cout<<"\n";
         cout<<"********** ORGANIZATE **********" <<endl;
-        cout<< " _" <<titulo<<":"<<endl;
-	    for(i=0;i<=ocup;i++)
+        cout<<"  "<<tareas[0]<<":"<<endl;
+	    for(i=1;i<=ocup;i++)
 	    	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
         cout<<"********************************"<<endl;
 	    cout<<" "<<endl;
@@ -309,7 +325,7 @@ void corregir_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op){
 }
 
 // [4] Exportar lista en formato ".txt"
-void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup, t_h2 titulo){
+void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
     int i;
     char exp;
     t_tarea filename = "lista_tareas.txt";
@@ -319,7 +335,6 @@ void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup, t_h2 titulo){
     	cerr<<"Failed to open "<<filename<<endl;
     }
     file << "********** ORGANIZATE **********" <<endl;
-    file << " _" << titulo << ":" << endl;
     for(i=0;i<=ocup;i++){
     	file << "\t" << no_hecho[i] << " " << tareas[i] << endl;
     }
