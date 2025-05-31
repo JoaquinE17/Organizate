@@ -14,8 +14,9 @@ struct nodo{
 	nodo* siguiente; // Permite enlasar nodos
 };
 
-void agregar_elementos(nodo*& principal, t_matriz tareas, int ocup);
-void mostrar_lista(nodo* principal);
-void liberar_lista(nodo*& principal);
+void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int ocup);
+  void agregar_elementos(nodo*& principal, t_matriz tareas, int ocup);
+  void mostrar_lista(nodo* principal);
+  void liberar_lista(nodo*& principal);
 
 #endif

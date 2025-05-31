@@ -12,21 +12,8 @@
 #include "vagones.h"
 
 using namespace std;
-/*
-t_h2 agregar_titulo(){
-    char op;
-    t_h2 title_default = "Lista de tareas:";
-    cout<<"Insetar titulo? s/n: ";cin>>op;
-    if (op == 's'){
-        cout<<"  Titulo: > ";
-        fflush(stdin);
-        gets(title_default);
-    }
-    return title_default;
-}
-*/
-// [1] Agregar tarea
-void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
+// [1] Crear tarea
+void crear_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
 	t_flecha check="[_]";
 
     char op;
@@ -57,15 +44,13 @@ void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 		gets(tareas[ocup]); // ¨[gets]-> Lee el valor de entrada y lo almacena en el puntero espesificado 
         cancelar_ingreso(tareas,ocup);
 	}
-	system("cls");
 }
 
-// [2] Mostrar lista 
-void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
+// [2] Previsualizar lista 
+void previsualizar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
 	int i;
 	if (ocup<0){
 		cout<<"Lista de tareas vacia.."<<endl;
-		continuar();
 	}
 	else{
 		cout<<"\n";
@@ -75,11 +60,10 @@ void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
 	    	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
         cout<<"********************************"<<endl;
 	    cout<<" "<<endl;
-	    continuar();
 	}
 }
 
-// [3] Modificar tareas de la lista 
+// [3] Modificar tareas 
 void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	char sub_op;
 	do{

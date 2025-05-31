@@ -11,9 +11,8 @@ typedef char t_h2[20];
 typedef t_tarea t_matriz[MAX];
 typedef t_flecha t_matriz2[MAX];
 
-//t_h2 agregar_titulo();
-void ingresar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
-void mostrar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
+void crear_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
+void previsualizar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
 void modificar_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
   void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char sub_op);
   void modtarea_v(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);

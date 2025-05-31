@@ -41,47 +41,43 @@ int main(){
     do{
         HabilitarAnsiEscapeCodes();
         cout<<"********** ORGANIZATE **********"<<endl;
-    	cout<<"  [1] Agregar tareas "<<endl;
-    	cout<<"  [2] Mostrar tareas"<<endl;
-    	cout<<"  [3] Modificar tareas"<<endl;
-    	cout<<"  [4] Exportar lista de tareas"<<endl;
-    	cout<<"  [5] Finalizar programa"<<endl;
+    	cout<<"  [1] Crear tarea "<<endl;
+    	cout<<"  [2] Previsualizar tarea"<<endl;
+    	cout<<"  [3] Modificar tarea"<<endl;
+    	cout<<"  [4] Exportar tarea actual"<<endl;
+    	cout<<"  [5] Construir lista de tareas"<<endl;
+        cout<<"  [6] Finalizar programa"<<endl;
         cout<<" -------------------------------"<<endl;
         cout<<"\033[1B -------------------------------"<<endl;
     	cout<<"\033[2AElija una opcion: ";cin>>op;
         cout<<"\n";
     	switch(op){
     	    case '1': 
-    	    	ingresar_tarea(no_hecho,pendientes,indice);
-                cout<<"Quiere crear lista final s/n: ";cin>>op2;
-                if (op2=='s'){
-                    agregar_elementos(lista_final,pendientes,indice);
-                }
-
+    	    	crear_tarea(no_hecho,pendientes,indice);
+                cout<<"Tarea creada.."<<endl;
+                continuar();
     	    	break;
     	    case '2':
-    	    	mostrar_tarea(no_hecho,pendientes,indice);
-                cout<<"Quiere ver la lista final s/n: ";cin>>op2;
-                if (op2=='s'){
-                    mostrar_lista(lista_final);
-                    continuar();
-                }
+    	    	previsualizar_tarea(no_hecho,pendientes,indice);
+                continuar();
     	    	break;
     	    case '3':
     	    	modificar_tarea(no_hecho,pendientes,indice);
     	    	break;
     	    case '4':
                 cout<<endl;
-                // Observar: presenta problemas al momento de exportar
     	    	exportar_tarea(no_hecho,pendientes,indice);
     	    	break;
     	    case '5':
-    	    	cout<<"Saliendo..\n"<<endl;
-    	    	Sleep(500);
-    	    	break;
+                construir_lista_tareas(lista_final,no_hecho,pendientes,indice);
+                break;
+            case '6':
+                cout<<"Saliendo..\n"<<endl;
+                Sleep(500);
+                break;
     	    default:
     	    	cout<<"ERROR: Ingreso invalido. Ingrese nuevamente."<<endl;
                 continuar();
     	}
-    }while(op!='5');
+    }while(op!='6');
 }
