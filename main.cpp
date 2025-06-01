@@ -54,7 +54,6 @@ int main(){
     	switch(op){
     	    case '1': 
     	    	crear_tarea(no_hecho,pendientes,indice);
-                cout<<"Tarea creada.."<<endl;
                 continuar();
     	    	break;
     	    case '2':

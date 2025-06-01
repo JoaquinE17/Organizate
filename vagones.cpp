@@ -25,7 +25,7 @@ void crear_tarea(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	}
 	else{
 		//strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
-        cout<<"Insetar titulo? s/n: ";cin>>op;
+        cout<<"Nueva tarea? s/n: ";cin>>op;
         if (op == 's'){
             ocup = 0;
             cout<<"  Titulo: > ";
