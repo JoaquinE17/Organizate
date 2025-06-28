@@ -9,7 +9,7 @@ void cancelar_ingreso(t_matriz tareas, int &ocup){
     char letra = 'q';
     if (*tareas[ocup] == letra){
         ocup--;
-        cout<<"Proceso cancelado."<<endl;
+        cout<<"Proceso cancelado.."<<endl;
         Sleep(500);
     }
     else{

@@ -19,8 +19,8 @@ struct nodo{
 
 void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int ocup);
   void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int ocup, int &total_tareas);
-  void mostrar_lista(nodo* principal);
-	void navegar_lista(nodo*& principal, char op, int total_tareas);
-  void liberar_lista(nodo*& principal);
+  void mostrar_lista(nodo* principal, int ocup);
+	void navegar_lista(nodo*& principal, char op, int total_tareas, int ocup);
+  void liberar_lista(nodo*& principal,int ocup);
 
 #endif
