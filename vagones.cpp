@@ -16,24 +16,38 @@ using namespace std;
 // [1] Crear nueva lista de tareas
 void crear_lista_nueva(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){ 
     t_flecha check="[_]";
-    char op;
+    char op,s_n;
     t_h2 title_default;
-    ocup = 0;
-    cout<<"  Ingrese titulo: ";
-    fflush(stdin);
-    gets(title_default);
-    strcpy(tareas[ocup],title_default);
-    modAgregar_tr(no_hecho,tareas,ocup);
+    cout<<"Continuar con la creacion s/n: ";cin>>s_n;
+    if (s_n=='n'){
+        system("cls");
+        return;
+    }
+    else{
+        ocup = 0;
+        cout<<"  Ingrese titulo: "<<endl;
+        cout<<"[q] Cancelar.";
+        cout<<"\033[1A\033[5C";
+        fflush(stdin);
+        gets(title_default);
+        strcpy(tareas[ocup],title_default);
+        if (*tareas[ocup]== 'q'){
+            cancelar_ingreso(tareas,ocup);
+            system("cls");
+        }
+        else
+            modAgregar_tr(no_hecho,tareas,ocup);
+    }
 }
 
 // [2] Previsualizar lista 
 void previsualizar_lista(t_matriz2 no_hecho, t_matriz tareas, int ocup){ 
 	int i;
+    cout<<"********************************"<<endl;
 	if (ocup<0){
 		cout<<"Lista de tareas vacia.."<<endl;
 	}
 	else{
-        cout<<"********************************"<<endl;
         cout<<"  "<<tareas[0]<<":"<<endl;
 	    for(i=1;i<=ocup;i++)
 	    	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
@@ -115,7 +129,7 @@ void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char sub_op){
 	        else
 	        	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
 	    }
-        cout<<"- - - - - - - - \n[Q] Cancelar"<<endl;
+        cout<<"- - - - - - - - \n[q] Cancelar"<<endl;
         cout<<"********************************"<<endl;
 	    cout<<"W(subir)/S(bajar)/X(marcar): ";
 	    cin>>elegido;
@@ -236,7 +250,7 @@ void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op){
             else
             	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
         }
-        cout<<"- - - - - - - - \n[Q] Cancelar"<<endl;
+        cout<<"- - - - - - - - \n[q] Cancelar"<<endl;
         cout<<"********************************"<<endl;
         cout<<"W(subir)/S(bajar)/O(desmarcar): ";
         cin>>elegido;
@@ -328,7 +342,7 @@ void modificar_titulo(t_matriz tareas, int ocup){
     cout<<"********************************"<<endl;
     cout<<"Titulo actual: \n\t> "<<tareas[0]<<endl;
     cout<<"Nuevo titulo: \n\t> ";
-    cout<<"\n[Q] Cancelar.";
+    cout<<"\n[q] Cancelar.";
     cout<<"\033[1A\033[3D";
     fflush(stdin);
     gets(nuevo_titulo);
@@ -349,7 +363,7 @@ void modAgregar_tr(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     while(ocup<MAX && op=='s'){
         strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
         cout<<"   Tarea["<<ocup<<"]: "<<endl;
-        cout<<"[Q] Cancelar.";
+        cout<<"[q] Cancelar.";
         cout<<"\033[1A";
         fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
         gets(tareas[ocup]); // ¨[gets]-> Lee el valor de entrada y lo almacena en el puntero espesificado 

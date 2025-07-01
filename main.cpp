@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
     	cout<<"  [2] Previsualizar lista"<<endl;
     	cout<<"  [3] Modificar lista"<<endl;
     	cout<<"  [4] Exportar tarea actual"<<endl;
-    	cout<<"  [5] Construir lista de tareas"<<endl;
+    	cout<<"  [5] Construir itinerario"<<endl;
         cout<<"  [6] Finalizar programa"<<endl;
         cout<<"\n -------------------------------"<<endl;
         cout<<"\033[1B -------------------------------"<<endl;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]){
     	    	crear_lista_nueva(no_hecho,pendientes,indice);
     	    	break;
     	    case '2':
-                cout<<"Previsualizacion:"<<endl;
+                cout<<"Previsualizacion (lista):"<<endl;
     	    	previsualizar_lista(no_hecho,pendientes,indice);
                 continuar();
     	    	break;

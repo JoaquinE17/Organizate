@@ -2,9 +2,6 @@
 Este modulo se encargara de almacenar las diferentes 'listas de tareas', permitiendo
 de este modo la navegacion entre ellas.
 
-[..] Agregar opcion para vaciar lista
-[..] Verificar si la lista esta vacia y reportar eso antes de ejecutar cualquier opcion.
-
 */
 #include <iostream>
 #include <cstddef>
@@ -20,18 +17,20 @@ de este modo la navegacion entre ellas.
 
 using namespace std;
 
-void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int ocup){
+void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup){
 	char op;
 	int total_tareas = 0;
 	do{
 		system("cls");
-		cout<<"******* -CONSTRUIR LISTA *******"<<endl;
-		cout<<"  [1] Agregar tarea a la lista"<<endl;
-        cout<<"  [2] Visualizar lista"<<endl;
-        cout<<"  [3] Navegar lista"<<endl; //Provisorio
-        cout<<"  [4] Vaciar lista"<<endl;
+		cout<<"********** ORGANIZATE **********"<<endl;
+        cout<<">_Construye tu itinerario"<<endl;
+        cout<<" -------------------------------\n"<<endl;
+		cout<<"  [1] Agregar lista actual"<<endl;
+        cout<<"  [2] Visualizar itinerario"<<endl;
+        cout<<"  [3] Navegar itinerario"<<endl; //Provisorio
+        cout<<"  [4] Vaciar itinerario"<<endl;
         cout<<"  [5] Volver [<-"<<endl;
-        cout<<" -------------------------------"<<endl;
+        cout<<"\n -------------------------------"<<endl;
         cout<<"\033[1B -------------------------------"<<endl;
         cout<<"\033[2AElija una opcion: ";cin>>op;
         cout<<"\n";
@@ -63,36 +62,46 @@ void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas
 	}while(op!='5');
 }
 
-void agregar_elementos(nodo*& principal, t_matriz2 no_hecho, t_matriz tareas, int ocup, int &total_tareas){
+void agregar_elementos(nodo*& principal, t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas){
 	if (ocup<0)
-		cout<<"No hay elementos para agregar a la lista."<<endl;
+		cout<<"No hay elementos para agregar al itinerario."<<endl;
 	else{
-		nodo* nuevo = new nodo;
-		int j;
-		for (j=0;j<=ocup;j++){
-			strcpy(nuevo->check[j],no_hecho[j]);
-			strcpy(nuevo->vagon[j],tareas[j]); 
+		char s_n;
+		cout<<"Confirmar agregacion s/n: ";cin>>s_n;
+    	if (s_n=='n'){
+    	    return;
+    	}
+    	else{
+			nodo* nuevo = new nodo;
+			int j;
+			total_tareas++;
+	    	cout<<"Agregar lista al itinerario:"<<endl;
+	    	cout<<"********************************"<<endl;
+			for (j=0;j<=ocup;j++){
+				strcpy(nuevo->check[j],no_hecho[j]);
+				strcpy(nuevo->vagon[j],tareas[j]); 
+			}
+			nuevo->cantidad = ocup;
+			nuevo->orden = total_tareas;
+
+			if (principal==NULL){
+				principal = nuevo;
+				principal->siguiente = principal; // Se apunta asi misma
+		        principal->anterior = principal;
+			}
+			else{
+				nodo* ultimo = principal->anterior;
+
+		        // Enlazar nuevo nodo al final
+		        ultimo->siguiente = nuevo;
+		        nuevo->anterior = ultimo;
+
+		        // Cerrar el ciclo
+		        nuevo->siguiente = principal;
+		        principal->anterior = nuevo;
+		    }
+			cout<< "Lista agregada con exito.." <<endl;
 		}
-		nuevo->cantidad = ocup;
-
-		if (principal==NULL){
-			principal = nuevo;
-			principal->siguiente = principal; // Se apunta asi misma
-	        principal->anterior = principal;
-		}
-		else{
-			nodo* ultimo = principal->anterior;
-
-	        // Enlazar nuevo nodo al final
-	        ultimo->siguiente = nuevo;
-	        nuevo->anterior = ultimo;
-
-	        // Cerrar el ciclo
-	        nuevo->siguiente = principal;
-	        principal->anterior = nuevo;
-	    }
-		total_tareas++;
-		cout<< "Elemento agregado a la lista.." <<endl;
 	}
 	
 }
@@ -103,7 +112,8 @@ void mostrar_lista(nodo* principal, int ocup){
 	else{
 		nodo* temp = principal;
 		int i;
-		cout<<"********** ORGANIZATE **********" <<endl;
+    	cout<<"Previsualizacion (itinerario):"<<endl;
+    	cout<<"********************************"<<endl;
 		do {
 	        cout << "  " << temp->vagon[0] << ":" << endl;
 	        for (i = 1; i <= temp->cantidad; i++) {
@@ -126,25 +136,30 @@ void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
 		nodo* temp2 = principal;
 		do{
 			system("cls");
-			cout<<"******* -CONSTRUIR LISTA *******"<<endl;
-			cout<<"  [1] Agregar tarea a la lista"<<endl;
-	        cout<<"  [2] Visualizar lista"<<endl;
-	        cout<<"  [3] Navegar lista"<<endl; //Provisorio
-	        cout<<"  [4] Vaciar lista"<<endl;
-	        cout<<"  [5] Volver [<-"<<endl;
-	        cout<<" -------------------------------"<<endl;
+			cout<<"********** ORGANIZATE **********"<<endl;
+        	cout<<">_Navega atravez del itinerario"<<endl;
+        	cout<<" -------------------------------\n"<<endl;
+			cout<<"  [1] Agregar lista actual"<<endl;
+        	cout<<"  [2] Visualizar itinerario"<<endl;
+        	cout<<"  [3] Navegar itinerario"<<endl; //Provisorio
+        	cout<<"  [4] Vaciar itinerario"<<endl;
+        	cout<<"  [5] Volver [<-"<<endl;
+        	cout<<"\n -------------------------------"<<endl;
 	        cout<<"Elija una opcion: "<<op<<endl;
 	        cout<<" -------------------------------"<<endl;
-	        cout<<"********** ORGANIZATE **********" <<endl;
+        	cout<<"Navegando itinerario:"<<endl;
+    		cout<<"********************************"<<endl;
 	        for (i=0;i<=total_tareas;i++){
 	        	if (i==n){
+	        		cout<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
 	        		cout<<"  "<<temp2->vagon[0]<<":"<<endl;
-	        		for (j=1;j<=temp2->cantidad;j++)
+	        		for (j=1;j<=temp2->cantidad;j++) // temp2->cantidad obtiene la cantidad de elementos en la lista
 	        			cout<<"\t"<<temp2->check[j]<<" "<<temp2->vagon[j]<<endl;
 	        	}
 	        }
+        	cout<<"- - - - -  \n[q] Salir"<<endl;
 	        cout<<"********************************"<<endl;
-	        cout<<"[<(A)] / [(D)>] / [Q(Salir)]: ";cin>>eleccion;
+	        cout<<"[<(A)] / [(D)>]: ";cin>>eleccion;
 	        switch(eleccion){
 	        	case 'd':
 	        		n++;
@@ -172,15 +187,26 @@ void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
 	
 }
 
-void liberar_lista(nodo*& principal, int ocup){
+void liberar_lista(nodo*& principal, int &ocup){
+	char s_n;
+	cout<<"Vaciar itinerario:"<<endl;
+    cout<<"********************************"<<endl;
 	if (ocup<0)
 		cout<< "Lista vacia. No hay elementos para eliminar."<<endl;
 	else{
-		while (principal!=NULL){
-			nodo* temp = principal;
-			principal = principal -> siguiente;
-			delete temp;
-		}
-        cout<<"La lista fue vaciada con exito.."<<endl;
+    	cout<<"Confirmar vaciado del itinerario s/n: ";cin>>s_n;
+    	if (s_n == 's'){
+    		    while (principal!=NULL){
+				nodo* temp = principal;
+				principal = principal -> siguiente;
+				temp->siguiente=NULL;
+			}
+			ocup = -1;
+        	cout<<"Itinerario vaciado con exito.."<<endl;
+    	}
+    	else{
+    		cout<<"Vaciado cancelado...";
+            Sleep(500);
+    	}
 	}
 }

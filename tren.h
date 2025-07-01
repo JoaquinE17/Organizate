@@ -13,14 +13,15 @@ struct nodo{
 	t_matriz vagon;
 	t_matriz2 check;
 	int cantidad;
+	int orden;
 	nodo* siguiente; // Permite enlasar nodos
 	nodo* anterior; // Permite retroceso entre nodos
 };
 
-void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int ocup);
-  void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int ocup, int &total_tareas);
+void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup);
+  void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void mostrar_lista(nodo* principal, int ocup);
 	void navegar_lista(nodo*& principal, char op, int total_tareas, int ocup);
-  void liberar_lista(nodo*& principal,int ocup);
+  void liberar_lista(nodo*& principal,int &ocup);
 
 #endif
