@@ -56,7 +56,6 @@ void previsualizar_lista(t_matriz2 no_hecho, t_matriz tareas, int ocup){
 }
 
 // [3] Modificar tareas 
-//[...] Agregar la opcion: "Agregar tareas pendientes" y "Cambiar titulo"
 void modificar_lista(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 	char sub_op;
 	do{
@@ -64,106 +63,40 @@ void modificar_lista(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         cout<<"********** ORGANIZATE **********"<<endl;
         cout<<">_Modifica/Marca/Desmarca/Agrega"<<endl;
         cout<<" -------------------------------\n"<<endl;
-		cout<<"  [1] Marcar tarea realizada"<<endl;
-        cout<<"  [2] Vaciar lista de tareas"<<endl;
-        cout<<"  [3] Hacer cambios en la lista"<<endl;
-        cout<<"  [4] Agregar tarea a la lista"<<endl;
-        cout<<"  [5] Volver [<-"<<endl;
+		cout<<"  [1] Agregar tarea a la lista"<<endl;
+        cout<<"  [2] Hacer cambios en la lista"<<endl;
+        cout<<"  [3] Vaciar lista de tareas"<<endl;  
+        cout<<"  [4] Volver [<-"<<endl; 
         cout<<"\n -------------------------------"<<endl;
         cout<<"\033[1B -------------------------------"<<endl;
         cout<<"\033[2AElija una opcion: ";cin>>sub_op;
         cout<<"\n";
         switch(sub_op){
             case '1':
-                modtarea_tr(no_hecho,tareas,ocup,sub_op);
-                break;
-            case '2':
-            	modtarea_v(no_hecho,tareas,ocup);
-            	break;
-            case '3':
-            	modtarea_c(no_hecho,tareas,ocup);
-            	break;
-            case '4':
                 cout<<"Agregar tarea:"<<endl;
                 previsualizar_lista(no_hecho,tareas,ocup);
                 cout<<"Ingrese nueva tarea:"<<endl;
                 modAgregar_tr(no_hecho,tareas,ocup);
                 break;
-            case '5':
+            case '2':
+            	modtarea_c(no_hecho,tareas,ocup);
+            	break;
+            case '3':
+            	modtarea_v(no_hecho,tareas,ocup);
+            	break;
+            case '4':
                 cout<<"Volviendo al menu principal.."<<endl;
                 Sleep(500);
                 system("cls");
-            	break;
+                break;
             default:
-            	cout<<"ERROR: Ingreso invalido. Ingrese nuevamente."<<endl;
+            	cout<<"ERROR: Ingreso invalido."<<endl;
             	Sleep(500);
         }
-	}while(sub_op!='5');
+	}while(sub_op!='4');
 }
 
-// [3_1] Marcar tarea realizada 
-void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char sub_op){
-	int j,i,n=1;// 'n' es la variable para mover el selector
-	t_flecha selector=">>>";
-	t_flecha check="[x]";
-	char elegido;
-	while(elegido!='x' && elegido!='q'){
-		system("cls");
-        cout<<"********** ORGANIZATE **********"<<endl;
-        cout<<">_Modifica/Marca/Desmarca/Agrega"<<endl;
-        cout<<" -------------------------------\n"<<endl;
-        cout<<"  [1] Marcar tarea realizada"<<endl;
-        cout<<"  [2] Vaciar lista de tareas"<<endl;
-        cout<<"  [3] Hacer cambios en la lista"<<endl;
-        cout<<"  [4] Agregar tarea a la lista"<<endl;
-        cout<<"  [5] Volver [<-"<<endl;
-        cout<<"\n -------------------------------"<<endl;
-        cout<<"Elija una opcion: "<<sub_op<<endl;
-        cout<<" -------------------------------"<<endl;
-        cout<<"Marcar/Check: "<<endl;
-        cout<<"********************************"<<endl;
-        cout<<"  "<<tareas[0]<<":"<<endl;
-	    for(i=1;i<=ocup;i++){
-	    	if(i==n)
-	            cout<<selector<<"     "<<no_hecho[i]<<" "<<tareas[i]<<endl;
-	        else
-	        	cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
-	    }
-        cout<<"- - - - - - - - \n[q] Cancelar"<<endl;
-        cout<<"********************************"<<endl;
-	    cout<<"W(subir)/S(bajar)/X(marcar): ";
-	    cin>>elegido;
-	    switch(elegido){
-	        case 's':
-	        	n++;
-	        	if(n>ocup)
-	        		n=ocup;
-	        	break;
-	        case 'w':
-	        	n--;
-	        	if(n<1)
-	        		n=1;
-	        	break;
-	        case 'x': // en este punto cambia [-] por [x]
-	        	for(j=0;j<=ocup;j++){
-	        		if(j==n){
-	        			strcpy(no_hecho[n],check);
-	        		}
-	        	}
-	        	cout<<"Tarea marcada"<<endl;
-	        	Sleep(500);
-	        	break;
-            case 'q':
-                cout<<"Cancelando...";
-                Sleep(500);
-                break;
-	        default:
-	        	cout<<"ERROR: Ingreso invalido."<<endl;
-                Sleep(500);
-	    }
-	    system("cls");
-	}
-}
+
 
 // [3_2] Vaciar lista
 void modtarea_v(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
@@ -182,7 +115,7 @@ void modtarea_v(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 		strcpy(tareas[i],vacio);
 	}
 	ocup=-1;
-	cout<<"Lista de tareas vaciada.."<<endl;
+	cout<<"   Lista de tareas vaciada.."<<endl;
 	continuar();
 }
 
@@ -194,36 +127,104 @@ void modtarea_c(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
         cout<<"********** ORGANIZATE **********"<<endl;
         cout<<">_Desmarcar/Modificar"<<endl;
         cout<<" -------------------------------\n"<<endl;
-		cout<<"  [1] Revertir marcacion"<<endl; 
-		cout<<"  [2] Modificar tarea"<<endl;
-        cout<<"  [3] Modificar titulo"<<endl;
-		cout<<"  [4] Volver [<-"<<endl;
-        cout<<" \n-------------------------------"<<endl;
+		cout<<"  [1] Marcar tarea"<<endl;
+        cout<<"  [2] Desmarcar tarea"<<endl;
+        cout<<"  [3] Cambiar titulo"<<endl;
+        cout<<"  [4] Cambiar tarea"<<endl;
+        cout<<"  [5] Volver [<-"<<endl;
+        cout<<" \n-------------------------------"<<endl;//[5] Volver[<-
         cout<<"\033[1B -------------------------------"<<endl;
 		cout<<"\033[2AElija una opcion: ";cin>>op_sub2;
         cout<<"\n";
 		switch(op_sub2){
 		case '1':
-			revertir_check(no_hecho,tareas,ocup,op_sub2);
+			modtarea_tr(no_hecho,tareas,ocup,op_sub2);
 			break;
 		case '2':
-			modificar_tarea(no_hecho,tareas,ocup,op_sub2);
+			revertir_check(no_hecho,tareas,ocup,op_sub2);
 			break;
         case '3':
             modificar_titulo(tareas,ocup);
             break;
 		case '4':
-			cout<<"Saliendo.."<<endl;
-			Sleep(500);
-			break;
+            modificar_tarea(no_hecho,tareas,ocup,op_sub2);
+            break;
+        case '5':
+            cout<<"Saliendo.."<<endl;
+            Sleep(500);
+            break;
 		default:
 			cout<<"ERROR: Ingreso invalido."<<endl;
             Sleep(500);
 		}
-	}while(op_sub2!='4');
+	}while(op_sub2!='5');
 }
 
-// [3_3_1] Quitar marcacion
+// [3_3_1] Marcar tarea
+void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char op){
+    int j,i,n=1;// 'n' es la variable para mover el selector
+    t_flecha selector=">>>";
+    t_flecha check="[x]";
+    char elegido;
+    while(elegido!='x' && elegido!='q'){
+        system("cls");
+        cout<<"********** ORGANIZATE **********"<<endl;
+        cout<<">_Modifica/Marca/Desmarca/Agrega"<<endl;
+        cout<<" -------------------------------\n"<<endl; // -----> MENU CAMBIADO
+        cout<<"  [1] Marcar tarea"<<endl;
+        cout<<"  [2] Desmarcar tarea"<<endl;
+        cout<<"  [3] Cambiar titulo"<<endl;
+        cout<<"  [4] Cambiar tarea"<<endl;
+        cout<<"  [5] Volver [<-"<<endl;
+        cout<<"\n -------------------------------"<<endl;
+        cout<<"Elija una opcion: "<<op<<endl;
+        cout<<" -------------------------------"<<endl;
+        cout<<"Marcar/Check: "<<endl;
+        cout<<"********************************"<<endl;
+        cout<<"  "<<tareas[0]<<":"<<endl;
+        for(i=1;i<=ocup;i++){
+            if(i==n)
+                cout<<selector<<"     "<<no_hecho[i]<<" "<<tareas[i]<<endl;
+            else
+                cout<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
+        }
+        cout<<"- - - - - - - - \n[q] Cancelar"<<endl;
+        cout<<"********************************"<<endl;
+        cout<<"W(subir)/S(bajar)/X(marcar): ";
+        cin>>elegido;
+        switch(elegido){
+            case 's':
+                n++;
+                if(n>ocup)
+                    n=ocup;
+                break;
+            case 'w':
+                n--;
+                if(n<1)
+                    n=1;
+                break;
+            case 'x': // en este punto cambia [-] por [x]
+                for(j=0;j<=ocup;j++){
+                    if(j==n){
+                        strcpy(no_hecho[n],check);
+                    }
+                }
+                cout<<"Tarea marcada"<<endl;
+                Sleep(500);
+                break;
+            case 'q':
+                cout<<"Cancelando...";
+                Sleep(500);
+                break;
+            default:
+                cout<<"ERROR: Ingreso invalido."<<endl;
+                Sleep(500);
+        }
+        system("cls");
+    }
+}
+
+// [3_3_2] Desmarcar tarea
 void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op){ 
 	int j,i,n=1;// 'n' es la variable para mover el selector
     t_flecha selector=">>>";
@@ -233,11 +234,12 @@ void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op){
     	system("cls");
         cout<<"********** ORGANIZATE **********"<<endl;
         cout<<">_Desmarcar/Modificar"<<endl;
-        cout<<" -------------------------------\n"<<endl;
-        cout<<"  [1] Revertir marcacion"<<endl; 
-        cout<<"  [2] Modificar tarea"<<endl;
-        cout<<"  [3] Modificar titulo"<<endl;
-        cout<<"  [4] Volver [<-"<<endl;
+        cout<<" -------------------------------\n"<<endl; // -----> MENU CAMBIADO
+        cout<<"  [1] Marcar tarea"<<endl;
+        cout<<"  [2] Desmarcar tarea"<<endl;
+        cout<<"  [3] Cambiar titulo"<<endl;
+        cout<<"  [4] Cambiar tarea"<<endl;
+        cout<<"  [5] Volver [<-"<<endl;
         cout<<" \n-------------------------------"<<endl;
         cout<<"Elija una opcion: "<<op<<endl;
         cout<<" -------------------------------"<<endl;
@@ -286,7 +288,26 @@ void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op){
     }
 }
 
-// [3_3_2] Modificar tarea
+// [3_3_3] Cambiar titulo
+void modificar_titulo(t_matriz tareas, int ocup){
+    t_tarea nuevo_titulo;
+    cout<<"Corregir/Cambiar (titulo):"<<endl;
+    cout<<"********************************"<<endl;
+    cout<<"Titulo actual: \n\t> "<<tareas[0]<<endl;
+    cout<<"Nuevo titulo: \n\t> ";
+    cout<<"\n[q] Cancelar.";
+    cout<<"\033[1A\033[3D";
+    fflush(stdin);
+    gets(nuevo_titulo);
+    if (*nuevo_titulo=='q'){
+        cout<<"Proceso cancelado.."<<endl;
+        continuar();
+    }
+    else
+        strcpy(tareas[0],nuevo_titulo);
+}
+
+// [3_3_4] Cambiar tarea
 void modificar_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op){
 	int i,j=0,orden;
 	bool cambio=false;
@@ -335,25 +356,6 @@ void modificar_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op){
 	system("cls");
 }
 
-// [3_3_3] Modificar titulo
-void modificar_titulo(t_matriz tareas, int ocup){
-    t_tarea nuevo_titulo;
-    cout<<"Corregir/Cambiar (titulo):"<<endl;
-    cout<<"********************************"<<endl;
-    cout<<"Titulo actual: \n\t> "<<tareas[0]<<endl;
-    cout<<"Nuevo titulo: \n\t> ";
-    cout<<"\n[q] Cancelar.";
-    cout<<"\033[1A\033[3D";
-    fflush(stdin);
-    gets(nuevo_titulo);
-    if (*nuevo_titulo=='q'){
-        cout<<"Proceso cancelado.."<<endl;
-        continuar();
-    }
-    else
-        strcpy(tareas[0],nuevo_titulo);
-}
-
 // [3_4] Agregar tarea
 void modAgregar_tr(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     t_flecha check= "[_]";
@@ -377,7 +379,7 @@ void modAgregar_tr(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
             system("cls");
     }
     if (ocup>=MAX){
-        cout<<"\tLa lista alcanzo su limite"<<endl;
+        cout<<"   La lista alcanzo su limite"<<endl;
         ocup--; // Esto es para para qe cuando imprima no me imprima 'MAX+1' elementos (lin.56:[i<=ocup])
         continuar();
     }

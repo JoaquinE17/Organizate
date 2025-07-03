@@ -18,10 +18,12 @@ struct nodo{
 	nodo* anterior; // Permite retroceso entre nodos
 };
 
-void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup);
+void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
-  void mostrar_lista(nodo* principal, int ocup);
+  void mostrar_lista(nodo* principal, int ocup, int total_tareas);
 	void navegar_lista(nodo*& principal, char op, int total_tareas, int ocup);
-  void liberar_lista(nodo*& principal,int &ocup);
+	  void marcar_itinerario(nodo*& principal, char op);
+	  void desmarcar_itinerario(nodo*& temp2, char op);
+  void liberar_lista(nodo*& temp2,int &ocup, int &total_tareas);
 
 #endif

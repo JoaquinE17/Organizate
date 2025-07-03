@@ -1,17 +1,17 @@
 ## AGREGAR Y CORREGIR:  
   
-tren.cpp y tren.h
------------------  
+(tren.cpp y tren.h)
+-------------------  
 [.x.] Revisar errores en tren.cpp: 'vaciar lista'(liberar_lista).  
-[...] Averiguar como verificar 'principal==NULL', para inplementarlo ademas de 'ocup<0'.  
-[...] Implementar las opciones de **-Modificar** en la funcion 'navegar_lista'.  
-[.x.] Verificar si la lista esta vacia y reportar eso antes de ejecutar cualquier opcion.  
-[...] Preguntar si quiere confirmar la accion de agregar lista (agregar_elementos).  
+[.x.] Verificar si el "itinerario" esta vacio, en lugar de la lista creada en vagones.cpp (crear_lista_nueva)  
+[.x.] Implementar las opciones de *marcar y desmarcar* en la funcion 'navegar_lista'.  
+[.x.] Verificar si la lista/itinerario estan vacios y reportar eso antes de ejecutar cualquier opcion.  
+[.x.] Preguntar si quiere confirmar la accion de "agregar lista actual" (agregar_elementos).  
 
 - - -
   
-vagones.cpp y vagones.h
------------------------  
+(vagones.cpp y vagones.h)
+-------------------------  
 [.x.] ***-Modificar*** los cambios a realizar son en las opciones que contiene este submenu.  
 [.x.] Agregar la opcion de 'Agregar tareas' en la lista en la que se esta trbajando.  
 [.x.] Agregar la opcion de 'Modificar titulo'.  
@@ -19,12 +19,13 @@ vagones.cpp y vagones.h
 
 - - -
   
-general
+General
 -------  
 [.X.] Agregar la opción **Cancelar** al momento en el que esta esperando una entrada.  
 [.X.] Corregir errores de sintaxis, mejorar la interfaz (detalles).  
 [...] Informar al usuario de cuantos ***caracteres puede ingresar***.  
-[...] Crear un _void_ que se encargue de la mostrar los menus, este recibira como parametro una lista (array) que contendra las opciones correspondientes del menu en cuestion.  
+[...] Renombrar variables ambiguas.
+[...] Crear una funcion que se encargue de mostrar los menus.
 
 - - -
 
