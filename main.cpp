@@ -36,27 +36,22 @@ int main(int argc, char *argv[]){
 
     int indice=-1, total_tareas=0;
     char op,op2;
+    //desactivarMaximizar();
+    system("mode con: cols=34 lines=35"); // [lines=30] Reedimenciona la ventana (consola)
+    SetConsoleTitle("Organizate"); // Renombra la ventana
+
     do{
         HabilitarAnsiEscapeCodes();
-        cout<<"********** ORGANIZATE **********"<<endl;
-        cout<<">_Organiza tus tareas pendientes"<<endl;
-        cout<<" -------------------------------\n"<<endl;
-    	cout<<"  [1] Crear nueva lista "<<endl;
-    	cout<<"  [2] Mostar lista"<<endl;
-    	cout<<"  [3] Modificar lista"<<endl;
-    	cout<<"  [4] Armar itinerario"<<endl;
-    	cout<<"  [5] Exportar lista"<<endl;
-        cout<<"  [6] Finalizar programa"<<endl;
-        cout<<"\n -------------------------------"<<endl;
-        cout<<"\033[1B -------------------------------"<<endl;
-    	cout<<"\033[2AElija una opcion: ";cin>>op;
-        cout<<"\n";
+        menu_main();
+        cout<<IDENT<<"\033[1B--------------------------------"<<endl;
+    	cout<<IDENT<<"\033[2AElija una opcion: ";cin>>op;
+        cout<<IDENT<<"\n";
     	switch(op){
     	    case '1': 
     	    	crear_lista_nueva(no_hecho,pendientes,indice);
     	    	break;
     	    case '2':
-                cout<<"Mostrando lista:"<<endl;
+                cout<<IDENT<<"Mostrando lista:"<<endl;
     	    	previsualizar_lista(no_hecho,pendientes,indice);
                 continuar();
     	    	break;
@@ -64,19 +59,24 @@ int main(int argc, char *argv[]){
     	    	modificar_lista(no_hecho,pendientes,indice);
     	    	break;
     	    case '4':
-                construir_lista_tareas(lista_final,no_hecho,pendientes,indice,total_tareas);
+                armar_itinerario(lista_final,no_hecho,pendientes,indice,total_tareas);
     	    	break;
     	    case '5':
-                cout<<endl;
-                exportar_tarea(no_hecho,pendientes,indice);
+                cout<<IDENT<<"Recuperar listas:"<<endl;
+                cout<<IDENT<<"********************************"<<endl;
+                recuperar_itinerario(lista_final,total_tareas);
+                continuar();
                 break;
             case '6':
-                cout<<"Saliendo..\n"<<endl;
+                navegar_lista(lista_final,op,total_tareas,indice);
+                break;
+            case '7':
+                cout<<IDENT<<"Saliendo..\n"<<endl;
                 Sleep(500);
                 break;
     	    default:
-    	    	cout<<"ERROR: Ingreso invalido."<<endl;
+    	    	cout<<IDENT<<"ERROR: Ingreso invalido."<<endl;
                 continuar();
     	}
-    }while(op!='6');
+    }while(op!='7');
 }

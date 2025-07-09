@@ -18,7 +18,19 @@ struct nodo{
 	nodo* anterior; // Permite retroceso entre nodos
 };
 
-void construir_lista_tareas(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
+// --- Guardar Proceso ---
+struct nodoAux{ // Guardar datos guardados en vagon y check (serializarlos)
+	t_matriz vagon_save;
+	t_matriz2 check_save;
+	int cantidad_save;
+	int orden_save;
+};
+void guardar_itinerario(nodo* principal);
+ void guardando_lista(const nodo* lista_final);
+void recuperar_itinerario(nodo*& lista_final, int &total_tareas);
+// ---	---
+
+void armar_itinerario(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void mostrar_lista(nodo* principal, int ocup, int total_tareas);
 	void navegar_lista(nodo*& principal, char op, int total_tareas, int ocup);

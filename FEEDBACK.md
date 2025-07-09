@@ -7,6 +7,9 @@
 [.x.] Implementar las opciones de *marcar y desmarcar* en la funcion 'navegar_lista'.  
 [.x.] Verificar si la lista/itinerario estan vacios y reportar eso antes de ejecutar cualquier opcion.  
 [.x.] Preguntar si quiere confirmar la accion de "agregar lista actual" (agregar_elementos).  
+[.x.] En *guardar_itinerario()* hacer que la funcion reescriba el archivo '.dat' o lo cree si no existe.
+[.x.] Corregir la enumeracion de las listas en *navegar_lista, marcar_itinerario y desmarcar_itinerario*.  
+[...] Crear una nueva funcion en *navegar_lista* que permita eliminar una lista a seleccion.  
 
 - - -
   
@@ -24,9 +27,9 @@ General
 [.X.] Agregar la opción **Cancelar** al momento en el que esta esperando una entrada.  
 [.X.] Corregir errores de sintaxis, mejorar la interfaz (detalles).  
 [...] Informar al usuario de cuantos ***caracteres puede ingresar***.  
-[...] Renombrar variables ambiguas.
-[...] Crear una funcion que se encargue de mostrar los menus.
-
+[...] Renombrar variables ambiguas.  
+[.x.] Crear una funcion que se encargue de mostrar los menus.  
+[.x.] Implementar una opcion para *Recuperar el itinerario* anteriormente armado (una vez que el programa se cerro).  
 - - -
 
 [...] Permitir al usuario elegir si quiere solo _GUARDAR_ la lista ***dentro del programa*** (sin posibilidad de verla en el escritorio), ó _EXPORTAR_ la lista ***en el escritorio*** (con posibilidad de verla como un archivo '.txt'). Al momento de _exportar_ sera necesario que tambien se _guarde_ en el programa, para posteriormente ser manipulada por el usuario.  
