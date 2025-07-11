@@ -31,13 +31,14 @@ int main(int argc, char *argv[]){
     t_matriz pendientes;
     t_matriz2 no_hecho;
     t_h2 titulo;
+    t_tarea nota_m1;
 
     nodo* lista_final = NULL;
 
     int indice=-1, total_tareas=0;
     char op,op2;
-    //desactivarMaximizar();
-    system("mode con: cols=34 lines=35"); // [lines=30] Reedimenciona la ventana (consola)
+    desactivarMaximizar();
+    system("mode con: cols=34 lines=23"); // [lines=35] Reedimenciona la ventana (consola)
     SetConsoleTitle("Organizate"); // Renombra la ventana
 
     do{
@@ -48,10 +49,15 @@ int main(int argc, char *argv[]){
         cout<<IDENT<<"\n";
     	switch(op){
     	    case '1': 
+                system("cls");
+                strcpy(nota_m1,">_Creando lista");
+                presentacion(nota_m1);
     	    	crear_lista_nueva(no_hecho,pendientes,indice);
     	    	break;
     	    case '2':
-                cout<<IDENT<<"Mostrando lista:"<<endl;
+                system("cls");
+                strcpy(nota_m1,">_Mostrando lista");
+                presentacion(nota_m1);
     	    	previsualizar_lista(no_hecho,pendientes,indice);
                 continuar();
     	    	break;
@@ -62,13 +68,17 @@ int main(int argc, char *argv[]){
                 armar_itinerario(lista_final,no_hecho,pendientes,indice,total_tareas);
     	    	break;
     	    case '5':
-                cout<<IDENT<<"Recuperar listas:"<<endl;
-                cout<<IDENT<<"********************************"<<endl;
-                recuperar_itinerario(lista_final,total_tareas);
+                system("cls");
+                strcpy(nota_m1,">_Recuperando listas");
+                presentacion(nota_m1);
+                recuperar_itinerario(lista_final,total_tareas,nota_m1);
                 continuar();
                 break;
             case '6':
-                navegar_lista(lista_final,op,total_tareas,indice);
+                system("cls");
+                strcpy(nota_m1,">_Navegando itinerario");
+                presentacion(nota_m1);
+                navegar_lista(lista_final,nota_m1,total_tareas,indice);
                 break;
             case '7':
                 cout<<IDENT<<"Saliendo..\n"<<endl;

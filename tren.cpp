@@ -23,14 +23,13 @@ using namespace std;
 void guardar_itinerario(nodo* principal){
 	char s_n;
     nodo* temp5 = principal;
-    cout<<IDENT<<"Guardar itinerario:"<<endl;
-    cout<<IDENT<<"********************************"<<endl;
     if (temp5==NULL){
         cout<<IDENT<<" Itinerario sin elementos."<<endl;
         return;
     }
     else{
-    	cout<<IDENT<<"Confirmar accion s/n: ";cin>>s_n;
+	    cout<<IDENT<<"--------------------------------"<<endl;
+    	cout<<IDENT<<"Guardar itinerario? s/n: ";cin>>s_n;
     	if (s_n=='n'){
     	    return;
     	}
@@ -40,7 +39,7 @@ void guardar_itinerario(nodo* principal){
             guardando_lista(temp5);
             temp5 = temp5->siguiente;
         } while (temp5 != principal);
-        cout<<IDENT<<" Itinerario guardado con exito."<<endl;
+        cout<<IDENT<<"\033[1AGUARDADO...                 "<<endl;
     }
 }
 void guardando_lista(const nodo* lista_final) {
@@ -62,25 +61,8 @@ void guardando_lista(const nodo* lista_final) {
     }
 }
 
-void recuperar_itinerario(nodo*& lista_final, int &total_tareas) {
+void recuperar_itinerario(nodo*& lista_final, int &total_tareas, t_tarea nota_m1) {
 	int contador= total_tareas-1;
-    std::ifstream archivo("itinerario.dat", std::ios::binary);
-    if (!archivo.is_open()) {
-        std::cerr << "Error al abrir el archivo para leer.\n";
-        return;
-    }
-    nodoAux datos_bin_aux;
-    int i;
-    while (archivo.read(reinterpret_cast<char*>(&datos_bin_aux), sizeof(nodoAux))) {
-        cout<<IDENT<<"  "<<datos_bin_aux.vagon_save[0]<<":"<<endl;
-        for (i=1; i<datos_bin_aux.cantidad_save+1; i++){
-        	cout << "\t" << datos_bin_aux.check_save[i] << " " << datos_bin_aux.vagon_save[i] << endl;
-        }
-    }
-    archivo.close();
-
-    cout<<IDENT<<" -------------------------------\n";
-
     std::ifstream archivo2("itinerario.dat", std::ios::binary);
     if (!archivo2.is_open()) {
         std::cerr << "Error al abrir el archivo para leer.\n";
@@ -88,7 +70,8 @@ void recuperar_itinerario(nodo*& lista_final, int &total_tareas) {
     }
     nodoAux datos_bin_aux2;
     while (archivo2.read(reinterpret_cast<char*>(&datos_bin_aux2), sizeof(nodoAux))) {
-        cout<<IDENT<<"Agregar: "<<datos_bin_aux2.vagon_save[0]<<endl;
+    	system("cls");
+    	presentacion(nota_m1);
         contador++;
         total_tareas = contador+1;
         datos_bin_aux2.orden_save = contador;
@@ -101,6 +84,7 @@ void recuperar_itinerario(nodo*& lista_final, int &total_tareas) {
 
 void armar_itinerario(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas){
 	char op;
+	t_tarea nota_m4;
 	do{
 		system("cls");
 		menu_tren();
@@ -109,26 +93,38 @@ void armar_itinerario(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int 
         cout<<IDENT<<"\n";
         switch(op){
             case '1':
-            	cout<<IDENT<<"Agregar lista:"<<endl;
-    			cout<<IDENT<<"********************************"<<endl;
+            	system("cls");
+            	strcpy(nota_m4,">_Agregando lista");
+    			presentacion(nota_m4);
                 agregar_elementos(principal,no_hecho,tareas,ocup,total_tareas);
                 continuar();
                 break;
             case '2':
-            	mostrar_lista(principal,ocup,total_tareas);
+            	system("cls");
+            	strcpy(nota_m4,">_Mostrando itinerario");
+            	presentacion(nota_m4);
+            	mostrar_lista(principal);
             	continuar();
             	break;
             case '3':
+            	system("cls");
+            	strcpy(nota_m4,">_Guardando itinerario");
+            	presentacion(nota_m4);
+            	if (principal!=NULL)
+            		mostrar_lista(principal);
             	guardar_itinerario(principal);//navegar_lista(principal,op,total_tareas,ocup); //op -> variable local
             	continuar();
             	break;
             case '4':
+            	system("cls");
+            	strcpy(nota_m4,">_Vaciando itinerario");
+            	presentacion(nota_m4);
+            	if (principal!=NULL)
+            		mostrar_lista(principal);
             	liberar_lista(principal,ocup,total_tareas);
             	continuar();
             	break;
             case '5':
-            	cout<<IDENT<<"Volviendo al menu principal.."<<endl;
-            	Sleep(500);
             	system("cls");
             	break;
             default:
@@ -145,7 +141,8 @@ void agregar_elementos(nodo*& principal, t_matriz2 no_hecho, t_matriz tareas, in
 		cout<<IDENT<<" No hay elementos para agregar."<<endl;
 	else{
 		char s_n;
-		cout<<IDENT<<" Confirmar accion s/n: ";cin>>s_n;
+		previsualizar_lista(no_hecho,tareas,ocup);
+		cout<<IDENT<<"Agregar lista? s/n: ";cin>>s_n;
     	if (s_n=='n'){
     	    return;
     	}
@@ -182,33 +179,28 @@ void agregar_elementos(nodo*& principal, t_matriz2 no_hecho, t_matriz tareas, in
 }
 
 // armar_itinerario ===> [mostrar_lista]
-void mostrar_lista(nodo* principal, int ocup, int total_tareas){
+void mostrar_lista(nodo* principal){
 	nodo* temp = principal;
-   	cout<<IDENT<<"Mostrando itinerario:"<<endl;
-   	cout<<IDENT<<"********************************"<<endl;
-	if (total_tareas<1 && temp==NULL){
+	if (temp==NULL){
 		cout<<IDENT<<" Itinerario sin elementos."<<endl;
 		return;
 	}
 	else{
-		int i;
+	    cout<<IDENT<<" ------------------------------"<<endl;
 		do {
-	        cout << "  " << temp->vagon[0] << ":" << endl;
-	        for (i = 1; i <= temp->cantidad; i++) {
-	            cout << "\t" << temp->check[i] << " " << temp->vagon[i] << endl;
-	        }
-	        cout << IDENT << "********************************" << endl;
+	        cout<<IDENT<<"  ["<<temp->orden<<"] "<<temp->vagon[0]<<endl;
+	        cout<<IDENT<<" |----------------------------|"<<endl;
 	        temp = temp->siguiente;
 	    } while (temp != principal);
 	}
+	cout<<"\033[1A";
+	cout<<IDENT<<" ------------------------------"<<endl;
 }
 
 // main ===> [navegar_lista]
-void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
+void navegar_lista(nodo*& principal, t_tarea nota_m1, int total_tareas,int ocup){
 	nodo* temp2 = principal;
-	if (total_tareas<1 && temp2==NULL){
-		cout<<IDENT<<"Navegando itinerario:"<<endl;
-    	cout<<IDENT<<"********************************"<<endl;
+	if (temp2==NULL){
 		cout<<IDENT<<" Itinerario sin elementos."<<endl;
 		continuar();
 	}
@@ -217,11 +209,7 @@ void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
 		char eleccion;
 		do{
 			system("cls");
-			menu_main();
-			cout<<IDENT<<"Elija una opcion: "<<op<<endl;
-	        cout<<IDENT<<" -------------------------------"<<endl;
-        	cout<<IDENT<<"Navegando itinerario:"<<endl;
-    		cout<<IDENT<<"********************************"<<endl;
+			presentacion(nota_m1);
 	        for (i=0;i<=total_tareas;i++){
 	        	if (i==n){
 	        		cout<<IDENT<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
@@ -230,7 +218,7 @@ void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
 	        			cout<<IDENT<<"\t"<<temp2->check[j]<<" "<<temp2->vagon[j]<<endl;
 	        	}
 	        }
-        	cout<<IDENT<<"- - - - - - - - - - - - - - - -\n[q]Salir [c]Marcar [v]Desmarcar"<<endl;
+        	cout<<IDENT<<"- - - - - - - - - - - - - - - -\n [q]Salir [c]Marcar [v]Desmarcar"<<endl;
 	        cout<<IDENT<<"********************************"<<endl;
 	        cout<<IDENT<<"[a]Retroceder / [d]Avanzar: ";cin>>eleccion;
 	        switch(eleccion){
@@ -247,10 +235,10 @@ void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
 	        		temp2 = temp2->anterior;
 	        		break;
 	        	case 'c':
-	        		marcar_itinerario(temp2,op);
+	        		marcar_itinerario(temp2);
 	        		break;
 	        	case 'v':
-	        		desmarcar_itinerario(temp2,op);
+	        		desmarcar_itinerario(temp2);
 	        		break;
 	        	case 'q':
 	        		guardar_itinerario(temp2);
@@ -268,19 +256,18 @@ void navegar_lista(nodo*& principal, char op, int total_tareas,int ocup){
 }
 
 // navegar_lista ===> [marcar_itinerario]
-void marcar_itinerario(nodo*& temp2, char op){
+void marcar_itinerario(nodo*& temp2){
 	int j,i,n=1;// 'n' es la variable para mover el selector
 	t_flecha selector=">>>";
-	t_flecha chek="[x]";
+	t_flecha chek="[X]";
+	t_flecha proceso="[P]";
 	nodo* temp3 = temp2;
 	char elegido;
-	while(elegido!='x' && elegido!='q'){
+	t_tarea nota_6_M;
+	strcpy(nota_6_M,">_Marcar tarea");
+	while(elegido!='x' && elegido!='q' && elegido!='p'){
 		system("cls");
-		menu_main();
-	    cout<<IDENT<<"Elija una opcion: "<<op<<endl;
-	    cout<<IDENT<<" -------------------------------"<<endl;
-        cout<<IDENT<<"Marcar tarea realizada:"<<endl;
-    	cout<<IDENT<<"********************************"<<endl;
+		presentacion(nota_6_M);
     	cout<<IDENT<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
     	cout<<IDENT<<"  "<<temp3->vagon[0]<<":"<<endl;
     	for (i=1; i<=temp3->cantidad; i++){
@@ -289,7 +276,7 @@ void marcar_itinerario(nodo*& temp2, char op){
     		else
     			cout<<IDENT<<"\t"<<temp3->check[i]<<" "<<temp3->vagon[i]<<endl;
     	}
-    	cout<<IDENT<<"- - - - - - - - - - - - - - - - \n [q]Salir [x]Marcar"<<endl;
+    	cout<<IDENT<<"- - - - - - - - - - - - - - - - \n [q]Salir [x]Hecho [p]En proceso"<<endl;
         cout<<IDENT<<"********************************"<<endl;
 	    cout<<IDENT<<"[w]Subir / [s]Bajar: ";
 	    cin>>elegido;
@@ -313,6 +300,15 @@ void marcar_itinerario(nodo*& temp2, char op){
 	        	cout<<IDENT<<"  Tarea marcada."<<endl;
 	        	Sleep(500);
 	        	break;
+	        case 'p':
+	        	for(j=0;j<=temp3->cantidad;j++){
+	        		if(j==n){
+	        			strcpy(temp3->check[n],proceso);
+	        		}
+	        	}
+	        	cout<<IDENT<<"  Tarea marcada."<<endl;
+	        	Sleep(500);
+	        	break;
             case 'q':
                 cout<<IDENT<<"Saliendo...";
                 Sleep(500);
@@ -326,19 +322,17 @@ void marcar_itinerario(nodo*& temp2, char op){
 }
 
 // navegar_lista ===> [desmarcar_itinerario]
-void desmarcar_itinerario(nodo*& temp2, char op){
+void desmarcar_itinerario(nodo*& temp2){
 	int j,i,n=1;// 'n' es la variable para mover el selector
 	t_flecha selector=">>>";
 	t_flecha chek="[_]";
 	nodo* temp3 = temp2;
 	char elegido;
+	t_tarea nota_6_D;
+	strcpy(nota_6_D,">_Desmarcar tarea");
 	while(elegido!='o' && elegido!='q'){
 		system("cls");
-		menu_main();
-	    cout<<IDENT<<"Elija una opcion: "<<op<<endl;
-	    cout<<IDENT<<" -------------------------------"<<endl;
-        cout<<IDENT<<"Desmarcar tarea realizada:"<<endl;
-    	cout<<IDENT<<"********************************"<<endl;
+		presentacion(nota_6_D);
     	cout<<IDENT<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
     	cout<<IDENT<<"  "<<temp3->vagon[0]<<":"<<endl;
     	for (i=1; i<=temp3->cantidad; i++){
@@ -386,11 +380,10 @@ void desmarcar_itinerario(nodo*& temp2, char op){
 void liberar_lista(nodo*& principal, int &ocup, int &total_tareas){
 	char s_n;
 	nodo* temp4 = principal;
-	cout<<IDENT<<"Vaciar itinerario:"<<endl;
-    cout<<IDENT<<"********************************"<<endl;
-	if (total_tareas<1 && temp4==NULL)
+	if (temp4==NULL)
 		cout<<IDENT<< " Itinerario sin elementos."<<endl;
 	else{
+	    cout<<IDENT<<"--------------------------------"<<endl;
     	cout<<IDENT<<"Confirmar vaciado s/n: ";cin>>s_n;
     	if (s_n == 's'){
     		    while (principal!=NULL){
@@ -399,11 +392,7 @@ void liberar_lista(nodo*& principal, int &ocup, int &total_tareas){
 				temp->siguiente=NULL;
 			}
 			total_tareas = 0;
-        	cout<<IDENT<<" Itinerario vaciado con exito.."<<endl;
-    	}
-    	else{
-    		cout<<IDENT<<"  Vaciado cancelado..."<<endl;
-            Sleep(500);
+			cout<<IDENT<<"\033[1AVACIADO...                 "<<endl;
     	}
 	}
 }

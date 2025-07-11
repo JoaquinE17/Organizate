@@ -27,15 +27,15 @@ struct nodoAux{ // Guardar datos guardados en vagon y check (serializarlos)
 };
 void guardar_itinerario(nodo* principal);
  void guardando_lista(const nodo* lista_final);
-void recuperar_itinerario(nodo*& lista_final, int &total_tareas);
+void recuperar_itinerario(nodo*& lista_final, int &total_tareas, t_tarea nota_m1);
 // ---	---
 
 void armar_itinerario(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
-  void mostrar_lista(nodo* principal, int ocup, int total_tareas);
-	void navegar_lista(nodo*& principal, char op, int total_tareas, int ocup);
-	  void marcar_itinerario(nodo*& principal, char op);
-	  void desmarcar_itinerario(nodo*& temp2, char op);
+  void mostrar_lista(nodo* principal);
+	void navegar_lista(nodo*& principal, t_tarea nota_m1, int total_tareas, int ocup);
+	  void marcar_itinerario(nodo*& principal);
+	  void desmarcar_itinerario(nodo*& temp2);
   void liberar_lista(nodo*& temp2,int &ocup, int &total_tareas);
 
 #endif

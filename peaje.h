@@ -18,6 +18,9 @@ void HabilitarAnsiEscapeCodes();
 void desactivarMaximizar();
 
 // Menus
+void presentacion(t_tarea nota);
+bool confirmacion();
+
 void menu_main();
 void menu_vagones();
 void menu_vagones_cambios();

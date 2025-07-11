@@ -16,10 +16,10 @@ void previsualizar_lista(t_matriz2 no_hecho, t_matriz tareas, int ocup);
 void modificar_lista(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup);
   void modtarea_v(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup); // Vaciar lista
   void modtarea_c(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup); // hacer Cambios en la lista
-    void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, char op); // marcar Tarea Realizada
-    void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, char op);
-    void modificar_tarea(t_matriz2 no_hecho, t_matriz &tareas, int ocup, char op);
-    void modificar_titulo(t_matriz tareas, int ocup);
+    void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, t_tarea nota_m3); // marcar Tarea Realizada
+    void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, t_tarea nota_m3);
+    void modificar_tarea(t_matriz &tareas, int ocup);
+    void modificar_titulo(t_matriz2 &no_hecho, t_matriz &tareas, int ocup);
   void modAgregar_tr(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup); // Agregar Tarea 
 void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup);
 

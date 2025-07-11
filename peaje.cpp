@@ -21,6 +21,7 @@ void cancelar_ingreso(t_matriz tareas, int &ocup){
 
 void continuar(){
 	char conti;
+    cout<<IDENT<<"--------------------------------"<<endl;
 	cout<<IDENT<<"Continuar [c]: ";cin>>conti;
 	system("cls");
 }
@@ -41,6 +42,23 @@ void desactivarMaximizar() {
     SetWindowLong(consoleWindow, GWL_STYLE, estilo);
 }
 
+void presentacion(t_tarea nota){
+    cout<<IDENT<<"--------------------------------"<<endl; 
+    cout<<IDENT<<nota<<endl;
+    cout<<IDENT<<"--------------------------------"<<endl;
+}
+
+bool confirmacion(){
+    char s_n;
+    cout<<IDENT<<"Confirmar accion s/n: ";cin>>s_n;
+    if (s_n=='s')
+        return true;
+    else{
+        system("cls");
+        return false;
+    }
+}
+
 void menu_main(){
     cout<<IDENT<<"********** ORGANIZATE **********"<<endl;
         cout<<IDENT<<">_Organiza tus tareas pendientes"<<endl;
@@ -57,7 +75,7 @@ void menu_main(){
 }
 
 void menu_vagones(){
-    cout<<IDENT<<"********** ORGANIZATE **********"<<endl;
+    cout<<IDENT<<"--------------------------------"<<endl;
     cout<<IDENT<<">_Agregar/Modificar/Vaciar"<<endl;
     cout<<IDENT<<"--------------------------------\n"<<endl;
     cout<<IDENT<<"  [1] Agregar tarea a la lista"<<endl;
@@ -68,7 +86,7 @@ void menu_vagones(){
 }
 
 void menu_vagones_cambios(){
-    cout<<IDENT<<"********** ORGANIZATE **********"<<endl;
+    cout<<IDENT<<"--------------------------------"<<endl;
     cout<<IDENT<<">_Marcar/Desmarcar/Modificar"<<endl;
     cout<<IDENT<<"--------------------------------\n"<<endl;
     cout<<IDENT<<"  [1] Marcar tarea"<<endl;
@@ -80,7 +98,7 @@ void menu_vagones_cambios(){
 }
 
 void menu_tren(){
-    cout<<IDENT<<"********** ORGANIZATE **********"<<endl;
+    cout<<IDENT<<"--------------------------------"<<endl;
     cout<<IDENT<<">_Arma tu itinerario"<<endl;
     cout<<IDENT<<"--------------------------------\n"<<endl;
     cout<<IDENT<<"  [1] Agregar lista actual"<<endl;
