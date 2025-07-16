@@ -1,8 +1,6 @@
 #include <iostream>
 #include <windows.h>
 
-#include "constantes.h"
-#include "vagones.h"
 #include "peaje.h"
 
 using namespace std;

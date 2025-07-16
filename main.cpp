@@ -37,6 +37,7 @@ int main(int argc, char *argv[]){
 
     int indice=-1, total_tareas=0;
     char op,op2;
+    system("cls");
     desactivarMaximizar();
     system("mode con: cols=34 lines=23"); // [lines=35] Reedimenciona la ventana (consola)
     SetConsoleTitle("Organizate"); // Renombra la ventana
@@ -89,4 +90,5 @@ int main(int argc, char *argv[]){
                 continuar();
     	}
     }while(op!='7');
+    system("mode con: cols=80 lines=25");
 }

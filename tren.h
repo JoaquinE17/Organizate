@@ -19,7 +19,7 @@ struct nodo{
 };
 
 // --- Guardar Proceso ---
-struct nodoAux{ // Guardar datos guardados en vagon y check (serializarlos)
+struct nodoAux{ 
 	t_matriz vagon_save;
 	t_matriz2 check_save;
 	int cantidad_save;

@@ -5,9 +5,7 @@
 #include <fstream> //Manejo de archivos
 #include <string>
 #include <conio.h> //Escucha el ingreso de tecla, uso de _kbhit() y _getch()
-#include <stdexcept> //Permite que tu programa detecte errores y los maneje de forma estructurada, lanzando ("throw") y capturando ("catch") objetos de estas clases.
-#include "constantes.h"
-#include "peaje.h"
+#include <stdexcept> //Permite que el programa detecte errores y los maneje de forma estructurada, lanzando ("throw") y capturando ("catch") objetos de estas clases.
 
 #include "vagones.h"
 
@@ -193,7 +191,7 @@ void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, t_tarea nota_m
                 if(n<1)
                     n=1;
                 break;
-            case 'x': // en este punto cambia [-] por [x]
+            case 'x': // en este punto cambia [_] por [x]
                 for(j=0;j<=ocup;j++){
                     if(j==n)
                         strcpy(no_hecho[n],check);

@@ -11,9 +11,6 @@ de este modo la navegacion entre ellas.
 #include <stdio.h>
 #include <windows.h>
 
-#include "peaje.h"
-#include "vagones.h"
-
 #include "tren.h"
 
 using namespace std;
