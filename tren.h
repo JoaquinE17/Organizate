@@ -33,6 +33,7 @@ void recuperar_itinerario(nodo*& lista_final, int &total_tareas, t_tarea nota_m1
 void armar_itinerario(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void agregar_elementos(nodo*& principal,t_matriz2 no_hecho, t_matriz tareas, int &ocup, int &total_tareas);
   void mostrar_lista(nodo* principal);
+    void mostrar_contenido(nodo* temp_aux,int n_list);
 	void navegar_lista(nodo*& principal, t_tarea nota_m1, int total_tareas, int ocup);
 	  void marcar_itinerario(nodo*& principal);
 	  void desmarcar_itinerario(nodo*& temp2);
