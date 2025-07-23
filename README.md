@@ -12,4 +12,4 @@ Organizate:
  [NOTA] : Los archivos .h son archivos de encabezado que contienen constantes y funciones.  
  [NOTA] : Se manipuló la ventana para hacer más cómoda la experiencia.  
 
- [compilador] https://sourceforge.net/projects/tdm-gcc/
+ [compilador]:https://sourceforge.net/projects/tdm-gcc/
