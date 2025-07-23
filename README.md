@@ -1,15 +1,38 @@
-Organizate:  
-----------  
- El proyecto *"Organizate"* es una aplicación de línea de comandos (CLI) creada con el fin de poner en práctica los conocimientos adquiridos. Fue construida utilizando el lenguaje *C++*. Durante su desarrollo, se aplicaron diferentes métodos de enfoque con el propósito de evaluar el comportamiento del programa y afrontar las dificultades que surgieron a lo largo del proceso.  
+# Organizate
 
- Su objetivo principal es la organización de tareas pendientes, brindando al usuario la posibilidad de marcar las tareas realizadas o aquellas que se encuentran en desarrollo, así como desmarcarlas en caso de haber cometido un error. Además, ofrece la opción de guardar el progreso y recuperarlo tras cerrar el programa. Esto se logra mediante el uso de *listas enlazadas*, que contienen estas "listas de tareas pendientes". A esta lista de listas la llamaremos itinerario.  
+**Organizate** es una aplicación de línea de comandos (CLI) desarrollada con el objetivo de poner en práctica los conocimientos adquiridos en programación. Fue construida utilizando el lenguaje **C++**.
 
- Durante la creación de una lista de pendientes (previa a la conformación del itinerario), el programa permite incluir *hasta 10 tareas*, y ofrece al usuario la posibilidad de modificar el título de la lista o cualquiera de sus tareas, además de marcar o desmarcar tareas ya realizadas. Una vez completado este proceso, el usuario puede visualizar la lista antes de incorporarla al itinerario final.  
+Durante su desarrollo, se aplicaron distintos enfoques para evaluar el comportamiento del programa y resolver los desafíos que surgieron a lo largo del proceso.
 
- Dado que el proyecto fue dividido en varios archivos y desarrollado en Windows, se creó un script en batch (*compilar.bat*) para automatizar su compilación. Ademas se deja en el repocitorio el archivo ya compilado, en caso de que no disponga de un compilador.  
+## Objetivo
 
- [NOTA] : El compilador utilizado es [TDM-GCC][compilador].  
- [NOTA] : Los archivos .h son archivos de encabezado que contienen constantes y funciones.  
- [NOTA] : Se manipuló la ventana para hacer más cómoda la experiencia.  
+El objetivo principal de *Organizate* es la **organización de tareas pendientes**. La aplicación permite al usuario:
 
- [compilador]:https://sourceforge.net/projects/tdm-gcc/
+- Marcar tareas como realizadas o en desarrollo
+- Desmarcar tareas si se cometió un error
+- Guardar el progreso y recuperarlo al reiniciar el programa
+
+Todo esto se implementa mediante el uso de **listas enlazadas**, que representan listas de tareas. A la colección de estas listas la llamamos **itinerario**.
+
+## Funcionalidades
+
+Antes de incorporar una lista de tareas al itinerario, el programa permite:
+
+- Crear listas con **hasta 10 tareas**
+- Modificar el **título de la lista**
+- Editar cualquier tarea individual
+- Marcar o desmarcar tareas realizadas
+- Visualizar la lista antes de agregarla al itinerario final
+
+## Compilación
+
+Dado que el proyecto fue dividido en varios archivos y desarrollado en **Windows**, se creó un script en batch (`compilar.bat`) para automatizar su compilación.  
+Además, se incluye en el repositorio el ejecutable ya compilado, por si el usuario no cuenta con un compilador.
+
+### Notas
+
+- El compilador utilizado fue **[TDM-GCC]**  
+- Los archivos `.h` son archivos de encabezado que contienen constantes y funciones  
+- Se realizaron ajustes a la ventana del programa para mejorar la experiencia del usuario  
+
+[TDM-GCC]: https://sourceforge.net/projects/tdm-gcc/
