@@ -143,7 +143,7 @@ void mostrar_contenido(nodo* principal,int n_list){
 		    cout<<IDENT<<"  ["<<temp_aux->orden<<"] "<<temp_aux->vagon[0]<<endl;
 		    cout<<IDENT<<" ------------------------------"<<endl;
             for (j=1;j<=temp_aux->cantidad;j++) // temp->cantidad obtiene la cantidad de elementos en la lista
-                cout<<IDENT<<"\t"<<temp_aux->check[j]<<" "<<temp_aux->vagon[j]<<endl;
+                cout<<IDENT<<"  "<<temp_aux->check[j]<<" "<<temp_aux->vagon[j]<<endl;
             break;
         }
         temp_aux = temp_aux->siguiente;
@@ -270,9 +270,9 @@ void navegar_lista(nodo*& principal, t_tarea nota_m1, int total_tareas,int ocup)
 	        for (i=0;i<=total_tareas;i++){
 	        	if (i==n){
 	        		cout<<IDENT<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
-	        		cout<<IDENT<<"  "<<temp2->vagon[0]<<":"<<endl;
+	        		cout<<IDENT<<" "<<temp2->vagon[0]<<":"<<endl;
 	        		for (j=1;j<=temp2->cantidad;j++) // temp2->cantidad obtiene la cantidad de elementos en la lista
-	        			cout<<IDENT<<"\t"<<temp2->check[j]<<" "<<temp2->vagon[j]<<endl;
+	        			cout<<IDENT<<"  "<<temp2->check[j]<<" "<<temp2->vagon[j]<<endl;
 	        	}
 	        }
         	cout<<IDENT<<"- - - - - - - - - - - - - - - -\n [q]Salir [c]Marcar [v]Desmarcar"<<endl;
@@ -314,9 +314,9 @@ void navegar_lista(nodo*& principal, t_tarea nota_m1, int total_tareas,int ocup)
 // Marcar itinerario ===> [Navegar itinerario] ===> [main]
 void marcar_itinerario(nodo*& temp2){
 	int j,i,n=1;// 'n' es la variable para mover el selector
-	t_flecha selector=">>>";
-	t_flecha chek="[X]";
-	t_flecha proceso="[P]";
+	t_flecha selector=">>";
+	t_flecha chek="[x]";
+	t_flecha proceso="[p]";
 	nodo* temp3 = temp2;
 	char elegido;
 	t_tarea nota_6_M;
@@ -325,12 +325,12 @@ void marcar_itinerario(nodo*& temp2){
 		system("cls");
 		presentacion(nota_6_M);
     	cout<<IDENT<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
-    	cout<<IDENT<<"  "<<temp3->vagon[0]<<":"<<endl;
+    	cout<<IDENT<<" "<<temp3->vagon[0]<<":"<<endl;
     	for (i=1; i<=temp3->cantidad; i++){
     		if (i==n)
-    			cout<<IDENT<<selector<<"    "<<temp3->check[i]<<" "<< temp3->vagon[i]<<endl;
+    			cout<<IDENT<<selector<<temp3->check[i]<<" "<< temp3->vagon[i]<<endl;
     		else
-    			cout<<IDENT<<"\t"<<temp3->check[i]<<" "<<temp3->vagon[i]<<endl;
+    			cout<<IDENT<<"  "<<temp3->check[i]<<" "<<temp3->vagon[i]<<endl;
     	}
     	cout<<IDENT<<"- - - - - - - - - - - - - - - - \n [q]Salir [x]Hecho [p]En proceso"<<endl;
         cout<<IDENT<<"********************************"<<endl;
@@ -379,7 +379,7 @@ void marcar_itinerario(nodo*& temp2){
 // Desmarcar itinerario ===> [Navegar itinerario] ===> [main]
 void desmarcar_itinerario(nodo*& temp2){
 	int j,i,n=1;// 'n' es la variable para mover el selector
-	t_flecha selector=">>>";
+	t_flecha selector=">>";
 	t_flecha chek="[_]";
 	nodo* temp3 = temp2;
 	char elegido;
@@ -389,12 +389,12 @@ void desmarcar_itinerario(nodo*& temp2){
 		system("cls");
 		presentacion(nota_6_D);
     	cout<<IDENT<<"*********** LISTA 0"<<temp2->orden<<" ***********"<<endl;
-    	cout<<IDENT<<"  "<<temp3->vagon[0]<<":"<<endl;
+    	cout<<IDENT<<" "<<temp3->vagon[0]<<":"<<endl;
     	for (i=1; i<=temp3->cantidad; i++){
     		if (i==n)
-    			cout<<IDENT<<selector<<"    "<<temp3->check[i]<<" "<< temp3->vagon[i]<<endl;
+    			cout<<IDENT<<selector<<temp3->check[i]<<" "<< temp3->vagon[i]<<endl;
     		else
-    			cout<<IDENT<<"\t"<<temp3->check[i]<<" "<<temp3->vagon[i]<<endl;
+    			cout<<IDENT<<"  "<<temp3->check[i]<<" "<<temp3->vagon[i]<<endl;
     	}
     	cout<<IDENT<<"- - - - - - - - - - - - - - - - \n [q]Salir [o]Desmarcar"<<endl;
         cout<<IDENT<<"********************************"<<endl;

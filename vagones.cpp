@@ -18,14 +18,16 @@ void crear_lista_nueva(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     t_h2 title_default;
     if (confirmacion()){
         ocup = 0;
-        cout<<IDENT<<"  Ingrese titulo: "<<endl;
-        cout<<IDENT<<"   >\n [q] Cancelar";
-        cout<<IDENT<<"\033[1A\033[8D";
+        cout<<IDENT<<" Titulo: "<<endl;
+        cout<<IDENT<<"  >\n [q] Cancelar";
+        cout<<IDENT<<"\033[1A\033[9D";
         fflush(stdin);
         gets(title_default);
         strcpy(tareas[ocup],title_default);
-        if (*tareas[ocup]!= 'q')
+        if (*tareas[ocup]!= 'q'){
+            cout<<"  Tareas:        "<<endl;
             modAgregar_tr(no_hecho,tareas,ocup);
+        }
         else{
             ocup--;
             system("cls");
@@ -41,9 +43,9 @@ void previsualizar_lista(t_matriz2 no_hecho, t_matriz tareas, int ocup){
 	}
 	else{
         cout<<IDENT<<"***** LISTA DE PENDIENTES ******"<<endl;
-        cout<<IDENT<<"  "<<tareas[0]<<":"<<endl;
+        cout<<IDENT<<" "<<tareas[0]<<":"<<endl;
 	    for(i=1;i<=ocup;i++)
-	    	cout<<IDENT<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
+	    	cout<<IDENT<<"  "<<no_hecho[i]<<" "<<tareas[i]<<endl;
         cout<<IDENT<<"********************************"<<endl;
 	}
 }
@@ -157,7 +159,7 @@ void modtarea_c(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
 // [3_3_1] Marcar tarea
 void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, t_tarea nota_m3){
     int j,i,n=1;// 'n' es la variable para mover el selector
-    t_flecha selector=">>>";
+    t_flecha selector=">>";
     t_flecha check="[x]";
     char elegido;
     if (ocup<0){
@@ -169,12 +171,12 @@ void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, t_tarea nota_m
         system("cls");
         presentacion(nota_m3);
         cout<<IDENT<<"***** LISTA DE PENDIENTES ******"<<endl;
-        cout<<IDENT<<"  "<<tareas[0]<<":"<<endl;
+        cout<<IDENT<<" "<<tareas[0]<<":"<<endl;
         for(i=1;i<=ocup;i++){
             if(i==n)
-                cout<<IDENT<<selector<<"    "<<no_hecho[i]<<" "<<tareas[i]<<endl;
+                cout<<IDENT<<selector<<no_hecho[i]<<" "<<tareas[i]<<endl;
             else
-                cout<<IDENT<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
+                cout<<IDENT<<"  "<<no_hecho[i]<<" "<<tareas[i]<<endl;
         }
         cout<<IDENT<<"- - - - - - - - - -\n [q]Salir [x]Marcar"<<endl;
         cout<<IDENT<<"********************************"<<endl;
@@ -212,7 +214,7 @@ void modtarea_tr(t_matriz2 &no_hecho, t_matriz &tareas, int ocup, t_tarea nota_m
 // [3_3_2] Desmarcar tarea
 void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, t_tarea nota_m3){ 
 	int j,i,n=1;// 'n' es la variable para mover el selector
-    t_flecha selector=">>>";
+    t_flecha selector=">>";
     t_flecha check="[_]";
     char elegido;
     if (ocup<0){
@@ -224,12 +226,12 @@ void revertir_check(t_matriz2 &no_hecho, t_matriz tareas, int ocup, t_tarea nota
     	system("cls");
         presentacion(nota_m3);
         cout<<IDENT<<"***** LISTA DE PENDIENTES ******"<<endl;
-        cout<<IDENT<<"  "<<tareas[0]<<":"<<endl;
+        cout<<IDENT<<" "<<tareas[0]<<":"<<endl;
         for(i=1;i<=ocup;i++){
         	if(i==n)
-                cout<<IDENT<<selector<<"    "<<no_hecho[i]<<" "<<tareas[i]<<endl;
+                cout<<IDENT<<selector<<no_hecho[i]<<" "<<tareas[i]<<endl;
             else
-            	cout<<IDENT<<"\t"<<no_hecho[i]<<" "<<tareas[i]<<endl;
+            	cout<<IDENT<<"  "<<no_hecho[i]<<" "<<tareas[i]<<endl;
         }
         cout<<IDENT<<"- - - - - - - - - - -\n [q]Salir [o]Desmarcar"<<endl;
         cout<<IDENT<<"********************************"<<endl;
@@ -273,10 +275,10 @@ void modificar_titulo(t_matriz2 &no_hecho, t_matriz &tareas, int ocup){
         return;
     }
     previsualizar_lista(no_hecho,tareas,ocup);
-    cout<<IDENT<<"Titulo actual: \n\t> "<<tareas[0]<<endl;
-    cout<<IDENT<<"Nuevo titulo: \n\t> ";
+    cout<<IDENT<<"Titulo actual: \n  > "<<tareas[0]<<endl;
+    cout<<IDENT<<"Nuevo titulo: \n  > ";
     cout<<IDENT<<"\n [q] Cancelar.";
-    cout<<IDENT<<"\033[1A\033[5D";
+    cout<<IDENT<<"\033[1A\033[11D";
     fflush(stdin);
     gets(nuevo_titulo);
     if (*nuevo_titulo!='q'){
@@ -299,7 +301,7 @@ void modificar_tarea(t_matriz &tareas, int ocup){
     cout<<IDENT<<"***** LISTA DE PENDIENTES ******"<<endl;
     cout<<IDENT<<"  "<<tareas[0]<<":"<<endl;
 	for(i=1;i<=ocup;i++){
-		cout<<IDENT<<"\t["<<i<<"] "<<tareas[i]<<endl;
+		cout<<IDENT<<"  ["<<i<<"] "<<tareas[i]<<endl;
 	}
 	cout<<IDENT<<"- - - - - -\n ["<<ocup+1<<"] Salir"<<endl;
     cout<<IDENT<<"********************************"<<endl;
@@ -317,10 +319,10 @@ void modificar_tarea(t_matriz &tareas, int ocup){
     else{
         if (orden <= ocup){
             cout<<IDENT<<"--------------------------------"<<endl;
-            cout<<IDENT<<" Tarea a cambiar: \n\t> "<<tareas[orden]<<endl;
-            cout<<IDENT<<" Nueva tarea: \n\t> ";
+            cout<<IDENT<<" Tarea a cambiar: \n   > "<<tareas[orden]<<endl;
+            cout<<IDENT<<" Nueva tarea: \n   > ";
             cout<<IDENT<<"\n [q] Cancelar.";
-            cout<<IDENT<<"\033[1A\033[5D";
+            cout<<IDENT<<"\033[1A\033[11D";
             fflush(stdin);
             gets(nuevo_cambio);
             if (*nuevo_cambio!='q'){
@@ -357,9 +359,9 @@ void modAgregar_tr(t_matriz2 &no_hecho, t_matriz &tareas, int &ocup){
     ocup++;
     while(ocup<MAX && op=='s'){
         strcpy(no_hecho[ocup],check); // [strcpy()]-> Copia el contenido de check en no_hecho[ocup]
-        cout<<IDENT<<"  Tarea["<<ocup<<"]: "<<endl;
+        cout<<IDENT<<"  ["<<ocup<<"]: "<<endl;
         cout<<IDENT<<"[q] Cancelar";
-        cout<<"\033[1A";
+        cout<<"\033[1A\033[5D";
         fflush(stdin); // [fflush]-> Realiza la limpieza del buffer de entrada (stdin) standar input.
         gets(tareas[ocup]); // ¨[gets]-> Lee el valor de entrada y lo almacena en el puntero espesificado 
         if (*tareas[ocup]=='q'){
@@ -395,9 +397,9 @@ void exportar_tarea(t_matriz2 no_hecho, t_matriz tareas, int ocup){
     	cerr<<"Failed to open "<<filename<<endl;
     }
     file << "********** ORGANIZATE **********" <<endl;
-    file << "  " << tareas[0] << " " << endl;
+    file << " " << tareas[0] << " " << endl;
     for(i=1;i<=ocup;i++){
-    	file << "\t" << no_hecho[i] << " " << tareas[i] << endl;
+    	file << "  " << no_hecho[i] << " " << tareas[i] << endl;
     }
     file << "********************************" << endl;
     file.close();
